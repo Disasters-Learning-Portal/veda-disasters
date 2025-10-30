@@ -35,47 +35,18 @@ infoDescription: |
     - Data Latency: Updated daily       
 layers:
 
-
   - id: sentinel-1-S1A_rgb_gpufed
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol: sentinel-1-all-vars-subdaily
-    name: sentinel-1-S1A_rgb_gpufed - Merged collections
+    stacCol:  sentinel-1-all-vars-subdaily-test2
+    name: Sentinel-1 RGB
     type: raster
-    initialDatetime: newest 
     description: 'sentinel-1-S1A_rgb_gpufed'
     sourceParams:
       resampling: bilinear
       nodata: 0
       assets: rgb
-      bidx: 
-        - 1
-        - 2
-        - 3
-    zoomExtent:
-      - 0
-      - 20
-    analysis:
-      exclude: true
-    info:
-      source: NASA
-      spatialExtent: Global 
-      temporalResolution: Daily 
-
-
-  - id: sentinel-1-S1A_rgb_gpufed-2
-    stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol: sentinel-1-rgb-subdaily
-    name: sentinel-1-S1A_rgb_gpufed - Coming from it's own collection
-    type: raster
-    description: 'sentinel-1-S1A_rgb_gpufed'
-    initialDatetime: newest
-    sourceParams:
-      resampling: bilinear
-      nodata: 0
-      assets: gpufed-RTC20
-      bidx: 
+      bidx:
         - 1
         - 2
         - 3
@@ -88,5 +59,6 @@ layers:
       source: NASA
       spatialExtent: Global 
       temporalResolution: Daily
+      unit: RGB
 
 ---

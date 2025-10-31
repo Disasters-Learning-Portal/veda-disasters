@@ -192,47 +192,6 @@ layers:
   #     temporalResolution: Daily
   #     unit: test  
 
-  - id: black-marble-Corrected_NTLC2_Mosaic_C2-v1
-    stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  black-marble-Corrected_NTLC2_Mosaic_C2-v1
-    name: black-marble-Corrected_NTLC2_Mosaic_C2-v1
-    type: raster 
-    initialDatetime: newest
-    description: 'black-marble-Corrected_NTLC2_Mosaic_C2-v1'
-    sourceParams:
-      assets: Corrected_NTLC2_Mosaic_C2
-      resampling: bilinear
-      colormap_name: 'inferno'
-      nodata: 0
-      rescale:
-        - 0
-        - 30 
-    zoomExtent:
-      - 0
-      - 20
-    analysis:
-      exclude: true
-    legend:
-      unit:
-        label: test      
-      type: gradient
-      min: "0"
-      max: "30"
-      stops:
-        - rgba(0, 0, 4, 1)
-        - rgba(40, 11, 84, 1)
-        - rgba(101, 21, 110, 1)b∫
-        - rgba(159, 42, 99, 1)
-        - rgba(212, 72, 66, 1)
-        - rgba(245, 125, 21, 1)
-        - rgba(252, 255, 164, 1)       
-    info:
-      source: NASA
-      spatialExtent: Global 
-      temporalResolution: Daily
-      unit: test  
-
   # - id: black-marble-QF_Cloud_Mask_Mosaic_SNPP_C2
   #   stacApiEndpoint: https://dev.openveda.cloud/api/stac
   #   tileApiEndpoint: https://dev.openveda.cloud/api/raster
@@ -381,7 +340,7 @@ layers:
   - id: sentinel-1-rgb
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  sentinel-1-all-vars-subdaily-test2
+    stacCol:  sentinel-1-all-vars-subdaily
     name: Sentinel-1 RGB
     type: raster
     description: 'Sentinel 1 RGB'
@@ -457,13 +416,13 @@ layers:
   - id: dswx-water-extent-bwtr
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  aria-dswx-hurricane-helene-202409-v7
+    stacCol:  opera-all-vars-daily
     name: Opera DSWx Water Extent (BWTR)
     type: raster 
     initialDatetime: newest
     description: 'Opera DSWx Water Extent - BWTR'
     sourceParams:
-      assets: DSWx-bwtr
+      assets: hls-BWTR
       resampling: nearest
       nodata: 0
       colormap: '{"0":[255,255,255,0],"1":[0,191,255,255]}' 
@@ -487,16 +446,16 @@ layers:
       temporalResolution: Daily
       unit: test  
 
-  - id: sentinel1-S1A-IW
+  - id: sentinel-1-hydrosar-WM
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  sentinel1-S1A-IW-hurricane-helene-202409-v4
+    stacCol:  sentinel-1-all-vars-subdaily
     name: Sentinel 1 Water Extent
     type: raster 
     initialDatetime: newest
     description: 'Sentinel 1 Water Extent'
     sourceParams:
-      assets: S1A_IW_gpufed
+      assets: hydrosar-wm
       resampling: nearest
       nodata: 0
       colormap: '{"1":[1,92,230],"2":[255,0,0],"3":[56,168,1],"4":[230,151,2]}' 

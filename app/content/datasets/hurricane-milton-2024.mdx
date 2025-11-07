@@ -80,39 +80,16 @@ layers:
       temporalResolution: Daily
       unit: W/cm²/sr                     
 
-
-  - id: sentinel-1-S1A_rgb_gpufed-Milton
+  - id: sentinel-1-hydrosar-wm
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  sentinel1-hurricane-milton-202410-v3
-    name: sentinel-1-S1A_rgb_gpufed Milton
-    type: raster 
-    description: 'sentinel-1-S1A_rgb_gpufed'
-    sourceParams:
-      asset_bidx: S1A_rgb_gpufed|1,2,3
-    zoomExtent:
-      - 0
-      - 20
-    analysis:
-      exclude: true
-    legend:
-      label: RGB Imagery (Copernicus Sentinel-1) for Hurricane Milton
-    info:
-      source: NASA
-      spatialExtent: Global 
-      temporalResolution: Daily
-      unit: Cloud Mask  
-
-  - id: sentinel1-S1A-IW-Milton
-    stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  sentinel1-S1A-IW-hurricane-milton-202410-v1
+    stacCol:  sentinel-1-all-vars-subdaily
     name: Sentinel 1 Water Extent Milton
     type: raster 
     initialDatetime: newest
     description: 'Sentinel 1 Water Extent'
     sourceParams:
-      assets: S1A_IW_gpufed
+      assets: hydrosar-wm
       resampling: nearest
       nodata: 0
       colormap: '{"1":[1,92,230],"2":[255,0,0],"3":[56,168,1],"4":[230,151,2]}' 
@@ -142,12 +119,17 @@ layers:
   - id: sentinel1-Milton-compare
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  sentinel1-hurricane-milton-202410-v3
-    name: Sentinel 1 Hurrican Milton Comparison
+    stacCol:  sentinel-1-all-vars-subdaily
+    name: Sentinel 1 Hurricane Milton Comparison
     type: raster 
     description: 'sentinel-1-S1A_rgb_gpufed'
     sourceParams:
-      asset_bidx: S1A_rgb_gpufed|1,2,3
+      resampling: bilinear
+      assets: rgb
+      bidx: 
+        - 1
+        - 2
+        - 3
     zoomExtent:
       - 0
       - 20
@@ -160,39 +142,26 @@ layers:
       unit: Cloud Mask  
     compare:
       datasetId: hurricane-milton-2024
-      layerId: sentinel1-S1A-IW-Milton
+      layerId: sentinel-1-hydrosar-wm
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
         }
-    legend:
-      type: categorical
-      min: "1"
-      max: "4"
-      stops:
-        - color: "#015CE6"
-          label: "Open Water"
-        - color: "#FF0000"
-          label: "Flooded Developed"
-        - color: "#38A801"
-          label: "Flooded Vegetation"
-        - color: "#E69702"
-          label: "Flooded Cropland/Grassland"
 
 
   - id: dswx-water-extent-wtr-Milton
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  opera-dswx-hurricane-milton-202410-v3
+    stacCol:  opera-all-vars-daily
     name: Opera DSWx Water Extent (WTR)
     type: raster 
     initialDatetime: newest
     description: 'Opera DSWx Water Extent - WTR'
     sourceParams:
-      assets: DSWx-wtr
+      assets: hls-WTR
       resampling: nearest
       nodata: 0
-      colormap: '{"0":[255,255,255,0],"1":[0,191,255,255]}' 
+      colormap: '{"0":[255,255,255,0],"1":[0,191,255,255], "253":[152, 152, 152, 255]}' 
     zoomExtent:
       - 0
       - 20
@@ -206,58 +175,25 @@ layers:
         - color: rgba(255, 255, 255, 1)
           label: "No Water"
         - color: rgba(0, 191, 255, 1)
-          label: "Water"     
-    info:
-      source: NASA
-      spatialExtent: Global 
-      temporalResolution: Daily
-      unit: test  
-
-  - id: dswx-water-extent-wtr-HLS-Milton
-    stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  opera-dswx-HLS-hurricane-milton-202410-v1
-    name: Opera DSWx HLS Water Extent (WTR)
-    type: raster 
-    initialDatetime: newest
-    description: 'Opera DSWx Water Extent - WTR'
-    sourceParams:
-      assets: DSWx-HLS
-      resampling: nearest
-      nodata: 0
-      colormap: '{"0":[255,255,255,0],"1":[0,191,255,255], "253":[152, 152, 152, 255]}' 
-    zoomExtent:
-      - 0
-      - 20
-    analysis:
-      exclude: true
-    legend:
-      type: categorical
-      min: "0"
-      max: "253"
-      stops:
-        - color: rgba(255, 255, 255, 1)
-          label: "No Water"
-        - color: rgba(0, 191, 255, 1)
-          label: "Water"     
+          label: "Water"
         - color: rgba(152, 152, 152, 1)
-          label: "Cloud Cover"   
+          label: "Cloud Cover"       
     info:
       source: NASA
       spatialExtent: Global 
       temporalResolution: Daily
       unit: test  
 
-  - id: dswx-water-extent-wtr-ChangeMap-Milton
+  - id: dswx-water-extent-wtr-ChangeMap
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  opera-dswx-ChangeMap-hurricane-milton-202410-v1
+    stacCol:  opera-all-vars-daily
     name: Opera DSWx Water Extent Change Map
     type: raster 
     description: 'Opera DSWx Change Map Water Extent'
     sourceParams:
-      assets: DSWx-ChangeMap
-      resampling: bilinear
+      assets: hls-changeMap-date2
+      resampling: nearest
       colormap_name: rdbu
       nodata: 0
     zoomExtent:
@@ -282,7 +218,7 @@ layers:
   - id: dswx-veg-anom-max-Milton
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  opera-DIST-ALERT-hurricane-milton-202410-v1
+    stacCol:  opera-all-vars-daily
     name: Opera VEG ANOM MAX
     type: raster 
     description: 'Opera VEG ANOM MAX'
@@ -290,7 +226,6 @@ layers:
       assets: VEG-ANOM-MAX
       resampling: nearest
       colormap_name: hot
-      nodata: 0
     zoomExtent:
       - 0
       - 20
@@ -328,14 +263,14 @@ layers:
       layerId: dswx-veg-anom-max-Milton
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
-          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+          return `${dateFns.format(datetime, 'dd LLL yyyy')}`;
         }
 
 
   - id: dswx-gen-anom-max-Milton
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  opera-DIST-ALERT-hurricane-milton-202410-v1
+    stacCol:  opera-all-vars-daily
     name: Opera GEN ANOM MAX
     type: raster 
     description: 'Opera GEN ANOM MAX'
@@ -381,25 +316,26 @@ layers:
       layerId: dswx-gen-anom-max-Milton
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
-          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+          return `${dateFns.format(datetime, 'dd LLL yyyy')}`;
         }
 
   - id: uavsar-Milton
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  uavsar-hurricane-milton-202410-v3
+    stacCol:  uavsar-all-vars-subdaily
     name: UAVSAR
     type: raster 
     description: 'UAVSAR'
+    initialDatetime: newest
     sourceParams:
-      assets: UAVSAR
+      assets: rgb
       bidx:
         - 1
         - 2
         - 3
     zoomExtent:
       - 0
-      - 20
+      - 10
     analysis:
       exclude: true
     legend:
@@ -413,7 +349,7 @@ layers:
   - id: ndvi-hurricane-milton-202410-v2
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol:  ndvi-hurricane-milton-202410-v2
+    stacCol:  sentinel-2-all-vars-daily
     name: Experimental Binary Normalized Difference Vegetation Index
     type: raster 
     initialDatetime: newest

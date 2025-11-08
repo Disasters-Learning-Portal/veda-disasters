@@ -405,13 +405,6 @@ layers:
       source: NASA
       spatialExtent: Global 
       temporalResolution: Daily
-    compare:
-      datasetId: hurricane-milton-2024
-      layerId: sentinel-2-trueColor
-      mapLabel: |
-        ::js ({ dateFns, datetime, compareDatetime }) => {
-          return `${dateFns.format(datetime, 'dd LLL yyyy')}`;
-        }
 
   - id: landsat-hurricane-milton-202410-v2
     stacApiEndpoint: https://dev.openveda.cloud/api/stac

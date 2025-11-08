@@ -98,19 +98,6 @@ layers:
       - 20
     analysis:
       exclude: true
-    legend:
-      type: categorical
-      min: "1"
-      max: "4"
-      stops:
-        - color: "#015CE6"
-          label: "Open Water"
-        - color: "#FF0000"
-          label: "Flooded Developed"
-        - color: "#38A801"
-          label: "Flooded Vegetation"
-        - color: "#E69702"
-          label: "Flooded Cropland/Grassland"
     info:
       source: NASA
       spatialExtent: Global 
@@ -120,7 +107,7 @@ layers:
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
     stacCol:  sentinel-1-all-vars-subdaily
-    name: Sentinel 1 Hurricane Milton Comparison
+    name: Sentinel 1 - HydroSAR
     type: raster 
     description: 'sentinel-1-S1A_rgb_gpufed'
     sourceParams:
@@ -147,7 +134,19 @@ layers:
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
         }
-
+    legend:
+      type: categorical
+      min: "1"
+      max: "4"
+      stops:
+        - color: "#015CE6"
+          label: "Open Water"
+        - color: "#FF0000"
+          label: "Flooded Developed"
+        - color: "#38A801"
+          label: "Flooded Vegetation"
+        - color: "#E69702"
+          label: "Flooded Cropland/Grassland"
 
   - id: dswx-water-extent-wtr-Milton
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
@@ -328,14 +327,14 @@ layers:
     description: 'UAVSAR'
     initialDatetime: newest
     sourceParams:
-      assets: rgb
+      assets: class
       bidx:
         - 1
         - 2
         - 3
     zoomExtent:
       - 0
-      - 10
+      - 20
     analysis:
       exclude: true
     legend:
@@ -355,7 +354,7 @@ layers:
     initialDatetime: newest
     description: The Experimental Binary NDVI change product is highlighting areas that experienced change (of any kind) since the pre-event Copernicus Sentinel-2 pass (October 2024) used in the analysis. The product is further filters to reduce noise and focus the identification on the more pronounced areas of change in an effort to identify areas that may have experienced damage during Hurricane Helene's passage and associated water and wind impacts.
     sourceParams:
-      assets: ndvi
+      assets: ndviChange
       resampling: nearest
       nodata: 0
       colormap: '{"0":[255,255,255,0],"1":[255,255,0,255]}' 
@@ -380,6 +379,39 @@ layers:
       spatialExtent: Global 
       temporalResolution: Daily
       unit: NDVI Change      
+
+  - id: sentinel-2-trueColor
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint: https://dev.openveda.cloud/api/raster
+    stacCol:  sentinel-2-all-vars-tiles-daily
+    name: TrueColor
+    type: raster 
+    description: 'TrueColor'
+    initialDatetime: newest
+    sourceParams:
+      assets: trueColor
+      bidx:
+        - 1
+        - 2
+        - 3
+    zoomExtent:
+      - 0
+      - 20
+    analysis:
+      exclude: true
+    legend:
+      label: TrueColor Imagery (Copernicus Sentinel-1) for Hurricane Milton
+    info:
+      source: NASA
+      spatialExtent: Global 
+      temporalResolution: Daily
+    compare:
+      datasetId: hurricane-milton-2024
+      layerId: sentinel-2-trueColor
+      mapLabel: |
+        ::js ({ dateFns, datetime, compareDatetime }) => {
+          return `${dateFns.format(datetime, 'dd LLL yyyy')}`;
+        }
 
   - id: landsat-hurricane-milton-202410-v2
     stacApiEndpoint: https://dev.openveda.cloud/api/stac

@@ -335,6 +335,9 @@ layers:
     zoomExtent:
       - 0
       - 20
+    minZoom:
+      - 0
+      - 20
     analysis:
       exclude: true
     legend:
@@ -406,16 +409,16 @@ layers:
       spatialExtent: Global 
       temporalResolution: Daily
 
-  - id: landsat-hurricane-milton-202410-v2
+  - id: landsat-hurricane-milton
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
-    stacCol: landsat-hurricane-milton-202410-v2
+    stacCol: landsat-all-vars-daily
     name: Landsat False Color
     type: raster 
     initialDatetime: newest
     description: Landsat False Color
     sourceParams:
-      assets: fcc
+      assets: colorInfrared
       bidx: 
         - 1
         - 2
@@ -432,7 +435,14 @@ layers:
       source: NASA
       spatialExtent: Global 
       temporalResolution: Daily
-      unit: Landsat FCC   
+      unit: Landsat FCC
+    compare:
+      datasetId: hurricane-milton-2024
+      layerId: landsat-hurricane-milton
+      mapLabel: |
+        ::js ({ dateFns, datetime, compareDatetime }) => {
+          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+        }   
 ---
 
 <Block>

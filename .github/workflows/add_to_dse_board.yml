@@ -1,0 +1,16 @@
+name: Add 'dev' labeled issue to DSE Project Board
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  add-to-project:
+    if: github.event.label.name == 'dev'  # Replace with your desired label
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to DSE GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/145
+          github-token: ${{ secrets.DSE_GH_TOKEN }}

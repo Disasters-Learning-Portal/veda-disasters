@@ -34,10 +34,10 @@ infoDescription: |
     - Data Latency: N/A
 
 layers:
-  - id: burma-eq-night-lights
-    stacCol: burma-eq-night-lights
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
+  - id: blackmarble-all-vars-daily
+    stacCol: blackmarble-all-vars-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
     name:  Black Marble Night Lights - 2025 Burma Earthquake
     type: raster
     description: NASA's Black Marble Night Lights dataset for before and after the 2025 Burma earthquake shows massive power outages in the Mandalay area.
@@ -46,9 +46,10 @@ layers:
       - 0
       - 20
     sourceParams:
+      assets: bm
       colormap_name: greys_r
       resampling: bilinear
-      rescale: -0,255
+      rescale: 0,255
       nodata: -999
     legend:
       unit:
@@ -66,8 +67,8 @@ layers:
         - "#aaaaaa"
         - "#ffffff"
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-night-lights
+      datasetId: burma-eq-2025
+      layerId: blackmarble-all-vars-daily
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
@@ -80,22 +81,23 @@ layers:
       unit: Wm-2sr-1cm-1
 
 
-  - id: burma-eq-s2-deformation-ew
-    stacCol: burma-eq-s2-deformation-ew
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
-    name:  S2 East-West Deformation - 2025 Burma Earthquake
+  - id: sentinel-1-all-vars-daily-EW
+    stacCol: sentinel-1-all-vars-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
+    name:  S1 East-West Deformation - 2025 Burma Earthquake
     type: raster
-    description: NASA/JPL/Caltech/ARIA product - modified Copernicus Sentinel-2 Multispectral Imager (MSI) east-west ground displacement from February 28 to April 1, 2025.
+    description: NASA/JPL/Caltech/ARIA product - modified Copernicus Sentinel-1 Multispectral Imager (MSI) east-west ground displacement from February 28 to April 1, 2025.
     initialDatetime: newest
     zoomExtent:
       - 0
       - 20
     sourceParams:
+      assets: deformation-EW
       colormap_name: bwr_r
       resampling: bilinear
       rescale: -5,5
-      nodata: -999
+      nodata: -9999
     legend:
       unit:
         label: m
@@ -112,8 +114,8 @@ layers:
         - "#92c5de"
         - "#0571b0"
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-s2-deformation-ns
+      datasetId: burma-eq-2025
+      layerId: sentinel-1-all-vars-daily-NS
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
@@ -126,10 +128,10 @@ layers:
       unit: m
 
 
-  - id: burma-eq-s2-deformation-ns
-    stacCol: burma-eq-s2-deformation-ns
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
+  - id: sentinel-1-all-vars-daily-NS
+    stacCol: sentinel-1-all-vars-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
     name:  S2 North-South Deformation - 2025 Burma Earthquake
     type: raster
     description: NASA/JPL/Caltech/ARIA product - modified Copernicus Sentinel-2 Multispectral Imager (MSI) north-south ground displacement from February 28 to April 1, 2025.
@@ -138,10 +140,11 @@ layers:
       - 0
       - 20
     sourceParams:
+      assets: deformation-NS
       colormap_name: bwr_r
       resampling: bilinear
       rescale: -5,5
-      nodata: -999
+      nodata: -9999
     legend:
       unit:
         label: m
@@ -158,8 +161,8 @@ layers:
         - "#92c5de"
         - "#0571b0"
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-s2-deformation-ew
+      datasetId: burma-eq-2025
+      layerId: sentinel-1-all-vars-daily-EW
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;

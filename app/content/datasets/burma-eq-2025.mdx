@@ -175,8 +175,8 @@ layers:
       unit: m
 
 
-  - id: planet-all-vars-tiled-daily
-    stacCol: planet-all-vars-tiled-daily
+  - id: planet-all-vars-tiles-daily
+    stacCol: planet-all-vars-tiles-daily
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     tileApiEndpoint:  https://dev.openveda.cloud/api/raster
     name:  PlanetScope Satellite Imagery (2025 Burma Earthquake)
@@ -196,7 +196,7 @@ layers:
       type: text
     compare:
       datasetId: burma-eq
-      layerId: planet-all-vars-tiled-daily
+      layerId: planet-all-vars-tiles-daily
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;

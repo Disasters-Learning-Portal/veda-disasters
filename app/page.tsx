@@ -26,7 +26,7 @@ export default function HomePage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          minHeight: '52vh',
+          minHeight: '60vh',
         }}
       >
         {/* overlay for contrast */}
@@ -71,7 +71,7 @@ export default function HomePage() {
         </div>
 
         {/* Action Cards - full width across hero, outside grid-container */}
-        <div className="position-relative" style={{ zIndex: 1, marginTop: '3rem', paddingLeft: '3rem', paddingRight: '3rem' }}>
+        <div className="position-relative" style={{ zIndex: 1, marginTop: '9rem', paddingLeft: '3rem', paddingRight: '3rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', width: '100%' }}>
             <a href="/events" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
               <img src="/images/event/blue-card.png" alt="Events" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.9 }} />

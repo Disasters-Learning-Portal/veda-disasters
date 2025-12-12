@@ -117,7 +117,7 @@ taxonomy:
       center={[-81.4083, 28.5074]}
       zoom={9}
       datasetId='hurricane-milton-2024'
-      layerId='dswx-water-extent-wtr-HLS-Milton'
+      layerId='dswx-water-extent-wtr-Milton'
       dateTime='2024-09-27'
     />
     <Caption>
@@ -129,11 +129,11 @@ taxonomy:
 <Block>
   <Figure>
     <Map
-      center={[-82.44, 28.3162]}
-      zoom={10}
+      center={[-82.4363, 28.3258]}
+      zoom={13}
       datasetId='hurricane-milton-2024'
-      layerId='dswx-water-extent-wtr-ChangeMap-Milton'
-      dateTime='2024-10-08'
+      layerId='dswx-water-extent-wtr-ChangeMap'
+      dateTime='2024-10-11'
     />
     <Caption>
     DSWx Change Map (October 8 - October 11, 2024)
@@ -192,7 +192,7 @@ taxonomy:
   <Figure>
     <Map
       center={[-81.378, 28.3528]}
-      zoom={9}
+      zoom={7}
       datasetId='hurricane-milton-2024'
       layerId='uavsar-Milton'
       dateTime='2024-10-12'
@@ -204,6 +204,16 @@ taxonomy:
   </Figure>
 </Block>
 
+
+
+<Block>
+  <Prose>
+  ### Vegetation Change Map
+
+  DRCS performed a Normalized Difference Vegetation Index (NDVI) analysis on the Sentinel 2 data to identify areas that may have sustained impacts based on changes in vegetation. The Experimental Binary NDVI change product highlights areas that experienced change (of any kind) as compared to imagery from Oct. and Nov. 2023. The product is further filtered to reduce noise and focus on more pronounced areas of change in an effort to identify areas that may have experienced damage during Hurricane Helene's passage and associated water and wind impacts.
+
+  </Prose>
+</Block>  
 
 <Block>
   <Figure>
@@ -219,20 +229,31 @@ taxonomy:
     NDVI Change Map for Hurricane Milton. Credits: MSFC, NASA, Copernicus Sentinel-2. Contains modified Copernicus Sentinel data (2024) processed by ESA.
     </Caption>
   </Figure>
+</Block>
 
+<Block>
   <Prose>
-  ### Vegetation Change Map
-
   From the European Space Agency Sentinel 2-A and 2-B satellites, the below 10m true color imagery shows how the Earth's surface would look to the naked eye from space. This optical imagery was collected on ** Oct. 12 and 14 ** following Hurricane Milton. The True Color RGBs below are produced using the 3 visible wavelength bands (red, green, and blue). False-color imagery featuring short wave infrared (SWIR) and near infrared (NIR) bands are also available as map image layers in the gallery.
 
   At 10m spatial resolution, this data can show landcover change, wide area flooding, severe road damage, and major change to urban areas. While not sufficient for structure-level damage assessments, it can reveal areas that may have been heavily impacted and locations of flood.
-
-  DRCS performed a Normalized Difference Vegetation Index (NDVI) analysis on the Sentinel 2 data to identify areas that may have sustained impacts based on changes in vegetation. The Experimental Binary NDVI change product highlights areas that experienced change (of any kind) as compared to imagery from Oct. and Nov. 2023. The product is further filtered to reduce noise and focus on more pronounced areas of change in an effort to identify areas that may have experienced damage during Hurricane Helene's passage and associated water and wind impacts.
-  
   </Prose>
-</Block>  
+</Block>
 
+<Block>
+  <Figure>
+    <Map
+      center={[-81.378, 28.3528]}
+      zoom={9}
+      datasetId='hurricane-milton-2024'
+      layerId='sentinel-2-trueColor'
+      dateTime='2024-10-14'
 
+    />
+    <Caption>
+    UAVSAR
+    </Caption>
+  </Figure>
+</Block>
 
 <Block>
   <Prose>
@@ -243,13 +264,13 @@ taxonomy:
 </Block>  
 
 
-<Block type='wide'>
+<Block>
   <Figure>
     <Map
-      center={[-81.3157, 28.489]}
-      zoom={8}
+      center={[-82.2903, 27.7544]}
+      zoom={11}
       datasetId='hurricane-milton-2024'
-      layerId='landsat-hurricane-milton-202410-v2'
+      layerId='landsat-hurricane-milton'
       dateTime='2024-08-24'
       compareDateTime='2024-10-02'
 

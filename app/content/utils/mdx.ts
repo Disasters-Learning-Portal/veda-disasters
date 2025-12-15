@@ -23,6 +23,12 @@ const DATASET_CONTENT_PATH = path.join(
   'content',
   'datasets',
 );
+const THEME_CONTENT_PATH = path.join(
+  process.cwd(),
+  'app',
+  'content',
+  'themes',
+);
 
 const md = markdownit();
 
@@ -135,4 +141,8 @@ export function getTransformedDatasetMetadata() {
 
 export function getTransformedDatasets() {
   return transformToDatasetsList(getDatasets());
+}
+
+export function getThemes() {
+  return getMDXData(THEME_CONTENT_PATH);
 }

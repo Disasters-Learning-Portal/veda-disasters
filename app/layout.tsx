@@ -90,6 +90,7 @@ export default function RootLayout({
 
           <Footer />
         </div>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

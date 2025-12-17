@@ -9,15 +9,11 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-export default function Providers({ datasets, children }: ProviderProps) {
+export default function Providers({ datasets = [], children }: ProviderProps) {
   return (
     <DevseedUIThemeProvider>
       <VedaUIConfigProvider>
-        {datasets ? (
-          <DataProvider initialDatasets={datasets}>{children}</DataProvider>
-        ) : (
-          children
-        )}
+        <DataProvider initialDatasets={datasets}>{children}</DataProvider>
       </VedaUIConfigProvider>
     </DevseedUIThemeProvider>
   );

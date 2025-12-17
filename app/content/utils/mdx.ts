@@ -9,6 +9,7 @@ import type {
   DatasetWithContent,
   StoryWithContent,
   StoryMetadata,
+  ThemeWithContent,
 } from 'app/types/content';
 
 const STORY_CONTENT_PATH = path.join(
@@ -22,6 +23,12 @@ const DATASET_CONTENT_PATH = path.join(
   'app',
   'content',
   'datasets',
+);
+const THEME_CONTENT_PATH = path.join(
+  process.cwd(),
+  'app',
+  'content',
+  'themes',
 );
 
 const md = markdownit();
@@ -135,4 +142,8 @@ export function getTransformedDatasetMetadata() {
 
 export function getTransformedDatasets() {
   return transformToDatasetsList(getDatasets());
+}
+
+export function getThemes(): ThemeWithContent[] {
+  return getMDXData(THEME_CONTENT_PATH) as ThemeWithContent[];
 }

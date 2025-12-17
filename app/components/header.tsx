@@ -7,7 +7,7 @@ import NasaLogoColor from 'app/components/nasa-logo-color.js';
 //Alternate blackout Disasters logo for example
 import {
   DATASET_CATALOG_PATH,
-  EVENTS_PATH,
+  THEMES_PATH,
   EXPLORATION_PATH,
   STORY_HUB_PATH,
 } from 'app/config';
@@ -31,33 +31,33 @@ export const navItems: NavItem[] = [
     type: 'internalLink',
   },
   {
-    id: 'hazards',
-    title: 'Hazards',
+    id: 'themes',
+    title: 'Themes',
     // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
     type: 'dropdown',
     children: [
       {
-        id: 'cyclones',
-        title: 'Tropical Cyclones',
-        to: createTaxonomyUrl('hurricanes_and_cyclones'),
+        id: 'prepare',
+        title: 'Prepare',
+        to: '/themes/prepare',
         type: 'internalLink',
       },
       {
-        id: 'fires',
-        title: 'Wildfires',
-        to: createTaxonomyUrl('wildfire'),
+        id: 'respond',
+        title: 'Respond',
+        to: '/themes/respond',
         type: 'internalLink',
       },
       {
-        id: 'floods',
-        title: 'Floods',
-        to: createTaxonomyUrl('floods'),
+        id: 'recover',
+        title: 'Recover',
+        to: '/themes/recover',
         type: 'internalLink',
       },
       {
-        id: 'earthquakes',
-        title: 'Earthquakes',
-        to: createTaxonomyUrl('earthquakes'),
+        id: 'resilience',
+        title: 'Resilience',
+        to: '/themes/resilience',
         type: 'internalLink',
       },
     ],

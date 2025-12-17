@@ -1,0 +1,46 @@
+name: Add 'dev' labeled issue to DSE Project Board
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  add-to-dse-project:
+    if: github.event.label.name == 'dse'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to DSE GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/145
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  add-to-odd-project:
+    if: github.event.label.name == 'odd'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to ODD GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/136
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  add-to-dashboard-project:
+    if: github.event.label.name == 'dashboard'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to Dashboard GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/17
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  add-to-data-services-project:
+    if: github.event.label.name == 'dataServices'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to Data Services GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/51
+          github-token: ${{ secrets.DSE_GH_TOKEN }}

@@ -104,69 +104,40 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Intro / description — larger text */}
-      <div className="grid-container">
-        <div className="grid-row margin-top-5">
-          <p
-            style={{
-              fontSize: '1.25rem', // bump size (~20px)
-              lineHeight: 1.6,
-              margin: 0,
-              maxWidth: '75ch',
-            }}
-          >
-            The NASA Disasters Program advances science and builds tools to help communities make informed decisions for disaster planning. Before, during, and after disasters strike, the Disasters Program provides partners with actionable data to recover from disaster impacts and build resilient communities.
-          </p>
-        </div>
 
-        <div className="grid-row margin-top-5">
-          <h2>Featured Events</h2>
-        </div>
-
-        <div className="grid-row grid-gap-md margin-top-2">
-          <div className="tablet:grid-col-6">
-            <div
-              className="card--homepage-topstory text-base-lightest radius-md display-flex flex-align-end padding-2"
-              style={{ backgroundImage: `url(${topStory.media?.src})` }}
-            >
-              <div className="card--homepage-topstory-text">
-                <h3>{topStory.name}</h3>
-                <p className="margin-top-1">{topStory.description}</p>
-              </div>
-              <Link className="link--block" href={topStory.path} />
-            </div>
-          </div>
-
-          <div className="tablet:grid-col-6">
-            {otherStories.map((d) => (
-              <div key={d.id} className="grid-row">
-                <div className="tablet:grid-col">
-                  <div
-                    className="card--homepage-substory text-base-lightest radius-md display-flex flex-align-end padding-2"
-                    style={{ backgroundImage: `url(${d.media?.src})` }}
-                  >
-                    <div className="card--homepage-topstory-text">
-                      <h3>{d.name}</h3>
-                      <p className="margin-top-1">{d.description}</p>
-                    </div>
-                    <Link className="link--block" href={d.path} />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        <div className="grid-row margin-top-5">
-          <h2>Current Conditions</h2>
-          <iframe id="current-dashboards"
-                  scrolling="no"
-                  frameBorder="0"
-                  style={{height:'700px',width:'960px'}}
-                  src="https://maps.disasters.nasa.gov/arcgis/apps/MapSeries/index.html?appid=ab7723584fe847449faaa2e62d3bef74"
-                  >
-      </iframe>
-        </div>
-        </div>
+      {/* Full-width Data Portal Visualization */}
+      <div style={{ width: '60%', margin: '0 auto', marginTop: '9rem' }}>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
+          Data Portal Visualization
+        </h2>
+        <img
+          src="/images/homepage/tropical-cyclone-dashboard.png"
+          alt="Tropical Cyclone Interactive Dashboard showing current activations"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
       </div>
+
+      {/* Full-width Resources & Learnings */}
+      <div style={{ width: '60%', margin: '0 auto', marginTop: '9rem' }}>
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
+          Resources & Learnings
+        </h2>
+        <img
+          src="/images/homepage/resources-learnings.png"
+          alt="Resources & Learnings section"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+      </div>
+
+      {/* Homepage Connect */}
+      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
+        <img
+          src="/images/homepage/homepage-connect.png"
+          alt="Connect with the Disasters community"
+          style={{ width: '100%', height: 'auto', display: 'block' }}
+        />
+      </div>
+
     </section>
   );
 }

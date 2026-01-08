@@ -2,11 +2,11 @@ name: Add labeled issue to Project Boards
 
 on:
   issues:
-    types: [labeled]
+    types: [labeled, unlabeled]
 
 jobs:
   add-to-dse-project:
-    if: github.event.label.name == 'dse'
+    if: github.event.label.name == 'dse' && github.event.action == 'labeled'
     runs-on: ubuntu-latest
     steps:
       - name: Add issue to DSE GitHub Project
@@ -16,7 +16,7 @@ jobs:
           github-token: ${{ secrets.DSE_GH_TOKEN }}
 
   add-to-odd-project:
-    if: github.event.label.name == 'odd'
+    if: github.event.label.name == 'odd' && github.event.action == 'labeled'
     runs-on: ubuntu-latest
     steps:
       - name: Add issue to ODD GitHub Project
@@ -26,7 +26,7 @@ jobs:
           github-token: ${{ secrets.DSE_GH_TOKEN }}
 
   add-to-dashboard-project:
-    if: github.event.label.name == 'dashboard'
+    if: github.event.label.name == 'dashboard' && github.event.action == 'labeled'
     runs-on: ubuntu-latest
     steps:
       - name: Add issue to Dashboard GitHub Project
@@ -36,7 +36,7 @@ jobs:
           github-token: ${{ secrets.DSE_GH_TOKEN }}
 
   add-to-data-services-project:
-    if: github.event.label.name == 'dataServices'
+    if: github.event.label.name == 'dataServices' && github.event.action == 'labeled'
     runs-on: ubuntu-latest
     steps:
       - name: Add issue to Data Services GitHub Project
@@ -44,3 +44,51 @@ jobs:
         with:
           project-url: https://github.com/orgs/NASA-IMPACT/projects/51
           github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  remove-from-dse-project:
+    if: github.event.label.name == 'dse' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from DSE GitHub Project
+        uses: alex-page/github-project-automation-plus@v0.9.0
+        with:
+          project: https://github.com/orgs/NASA-IMPACT/projects/145
+          column: Done
+          repo-token: ${{ secrets.DSE_GH_TOKEN }}
+          action: delete
+
+  remove-from-odd-project:
+    if: github.event.label.name == 'odd' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from ODD GitHub Project
+        uses: alex-page/github-project-automation-plus@v0.9.0
+        with:
+          project: https://github.com/orgs/NASA-IMPACT/projects/136
+          column: Done
+          repo-token: ${{ secrets.DSE_GH_TOKEN }}
+          action: delete
+
+  remove-from-dashboard-project:
+    if: github.event.label.name == 'dashboard' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from Dashboard GitHub Project
+        uses: alex-page/github-project-automation-plus@v0.9.0
+        with:
+          project: https://github.com/orgs/NASA-IMPACT/projects/17
+          column: Done
+          repo-token: ${{ secrets.DSE_GH_TOKEN }}
+          action: delete
+
+  remove-from-data-services-project:
+    if: github.event.label.name == 'dataServices' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from Data Services GitHub Project
+        uses: alex-page/github-project-automation-plus@v0.9.0
+        with:
+          project: https://github.com/orgs/NASA-IMPACT/projects/51
+          column: Done
+          repo-token: ${{ secrets.DSE_GH_TOKEN }}
+          action: delete

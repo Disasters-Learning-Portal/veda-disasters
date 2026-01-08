@@ -25,14 +25,33 @@ const createExplorationUrl = (product: string) => {
 
 export const navItems: NavItem[] = [
   {
-    id: 'current',
-    title: 'Current Data',
-    to: createExplorationUrl('nrt'),
-    type: 'internalLink',
+    id: 'about',
+    title: 'About Us',
+    type: 'dropdown',
+    children: [
+      {
+        id: 'disasters-science-to-action',
+        title: 'Disasters Science to Action',
+        to: '/about',
+        type: 'internalLink',
+      },
+      {
+        id: 'disasters-response',
+        title: 'Disasters Response Coordination System',
+        to: '/about',
+        type: 'internalLink',
+      },
+      {
+        id: 'disasters-portal',
+        title: 'Portal',
+        to: '/about',
+        type: 'internalLink',
+      },
+    ]
   },
   {
     id: 'themes',
-    title: 'Themes',
+    title: 'Explore Themes',
     // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
     type: 'dropdown',
     children: [
@@ -63,73 +82,66 @@ export const navItems: NavItem[] = [
     ],
   },
   {
-    id: 'events',
-    title: 'Events',
-    to: `/${STORY_HUB_PATH}`,
-    type: 'internalLink',
-  },
-  {
-    id: 'connect',
-    title: 'Connect',
-    // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
+    id: 'data-portal',
+    title: 'Data Portal',
     type: 'dropdown',
     children: [
       {
-        id: 'newsletter',
-        title: 'Newsletter',
-        href: 'https://lp.constantcontactpages.com/su/tn3iEZN',
-        type: 'externalLink',
-      },
-      {
-        id: 'activate',
-        title: 'Request Activation',
-        to: '/home',
+        id: 'dataViz',
+        title: 'Data Visualization',
+        to: '/themes/prepare',
         type: 'internalLink',
       },
       {
-        id: 'contact',
-        title: 'Contact Us',
-        href: 'mailto:hq-disasters-gis@mail.nasa.gov',
-        type: 'externalLink',
-      },
-      {
-        id: 'feedback',
-        title: 'Feedback',
-        href: 'https://docs.google.com/forms/d/e/1FAIpQLSeCriSetRerEObzaJh0O3hv0-12oWrff_kjTxesgmJgkuOD7g/viewform',
-        type: 'externalLink',
+        id: 'notebooks',
+        title: 'Jupyter Notebooks / Data Processing',
+        to: '/themes/respond',
+        type: 'internalLink',
       },
     ],
   },
-];
-
-export const subNavItems: NavItem[] = [
   {
-    id: 'about',
-    title: 'About',
-    to: '/about',
-    type: 'internalLink',
+    id: 'resource-learning',
+    title: 'Resources & Learning',
+    type: 'dropdown',
+    children: [
+      {
+        id: 'learning',
+        title: 'Learning',
+        to: '/themes/prepare',
+        type: 'internalLink',
+      },
+      {
+        id: 'resources',
+        title: 'Resources',
+        to: '/themes/respond',
+        type: 'internalLink',
+      },
+    ],
   },
 ];
 
 export default function Header() {
   return (
     <VedaUIConfigProvider>
-      <PageHeader
-        title={'NASA Disasters Program'}
-        mainNavItems={navItems}
-        subNavItems={subNavItems}
-        logoSvg={
-          <div id='logo-container-link'>
-            {/*
-              USWDS targets only <a> tags for styling links. However when the text is a <span>
-              instead of a link, it does not inherit the color styling (it ends up being white).
-              To fix this, we must add the color inline like this.
-              TODO: Ideally we can address this on the veda-ui side so that the color applies to all elements within the logo.
-            */}
-            <NasaLogoColor />
-          </div>
-        }
-      />
+      <div className="custom-header-size">
+        <PageHeader
+          title={'NASA Disasters Program'}
+          mainNavItems={navItems}
+          subNavItems={[]}
+          logoSvg={
+            <div id='logo-container-link'>
+              {/*
+                USWDS targets only <a> tags for styling links. However when the text is a <span>
+                instead of a link, it does not inherit the color styling (it ends up being white).
+                To fix this, we must add the color inline like this.
+                TODO: Ideally we can address this on the veda-ui side so that the color applies to all elements within the logo.
+              */}
+              <NasaLogoColor />
+            </div>
+          }
+        />
+      </div>
     </VedaUIConfigProvider>
   );
 }

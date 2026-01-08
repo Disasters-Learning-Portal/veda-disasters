@@ -45,3 +45,36 @@ body {
     height: 70px !important;
   }
 }
+
+// Header navigation items sizing
+.custom-header-size {
+  .usa-nav__primary {
+    button,
+    a {
+      font-size: 1.25rem !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  .usa-nav__primary-item {
+    button,
+    a {
+      font-size: 1.25rem !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  .usa-nav__link {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+  }
+
+  // Target all navigation text elements
+  nav {
+    button,
+    a {
+      font-size: 1.25rem !important;
+      font-weight: 600 !important;
+    }
+  }
+}

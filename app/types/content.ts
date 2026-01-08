@@ -15,4 +15,7 @@ export type DatasetWithContent = WithContent<DatasetData>;
 export type StoryMetadata = MetadataWithSlug<StoryData>;
 export type StoryWithContent = WithContent<StoryData>;
 
+export type ThemeMetadata = MetadataWithSlug<StoryData>;
+export type ThemeWithContent = WithContent<StoryData>;
+
 export type ContentMetadata = MetadataWithSlug<DatasetData | StoryData>;

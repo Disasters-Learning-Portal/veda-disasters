@@ -27,6 +27,7 @@ export const navItems: NavItem[] = [
   {
     id: 'about',
     title: 'About Us',
+    // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
     type: 'dropdown',
     children: [
       {
@@ -84,6 +85,7 @@ export const navItems: NavItem[] = [
   {
     id: 'data-portal',
     title: 'Data Portal',
+    // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
     type: 'dropdown',
     children: [
       {
@@ -103,6 +105,7 @@ export const navItems: NavItem[] = [
   {
     id: 'resource-learning',
     title: 'Resources & Learning',
+    // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
     type: 'dropdown',
     children: [
       {

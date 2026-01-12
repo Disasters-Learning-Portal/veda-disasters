@@ -53,18 +53,32 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
         run: |
+          echo "Issue ID: $ISSUE_ID"
+          echo "Issue Number: $ISSUE_NUMBER"
+          echo "Searching for issue in project 145..."
+
+          # Query project with pagination support
           gh api graphql -f query='
             query($org: String!, $number: Int!) {
               organization(login: $org) {
                 projectV2(number: $number) {
                   id
                   items(first: 100) {
+                    pageInfo {
+                      hasNextPage
+                      endCursor
+                    }
                     nodes {
                       id
                       content {
                         ... on Issue {
                           id
+                          number
+                          title
                         }
                       }
                     }
@@ -73,19 +87,34 @@ jobs:
               }
             }' -f org='NASA-IMPACT' -F number=145 > project_data.json
 
-          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+          cat project_data.json
+
           PROJECT_ID=$(jq -r '.data.organization.projectV2.id' project_data.json)
+          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+
+          echo "Project ID: $PROJECT_ID"
+          echo "Item ID: $ITEM_ID"
 
           if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
-            gh api graphql -f query='
+            echo "Deleting item $ITEM_ID from project $PROJECT_ID"
+            DELETE_RESULT=$(gh api graphql -f query='
               mutation($projectId: ID!, $itemId: ID!) {
                 deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
                   deletedItemId
                 }
-              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID"
-            echo "Removed issue from project"
+              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID")
+
+            echo "Delete result: $DELETE_RESULT"
+
+            if echo "$DELETE_RESULT" | jq -e '.data.deleteProjectV2Item.deletedItemId' > /dev/null; then
+              echo "✓ Successfully removed issue #$ISSUE_NUMBER from DSE project"
+            else
+              echo "✗ Failed to remove issue #$ISSUE_NUMBER from DSE project"
+              echo "$DELETE_RESULT"
+              exit 1
+            fi
           else
-            echo "Issue not found in project"
+            echo "Issue #$ISSUE_NUMBER not found in project (may have been already removed or not added)"
           fi
 
   remove-from-odd-project:

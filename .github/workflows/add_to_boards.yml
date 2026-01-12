@@ -54,45 +54,100 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
           ISSUE_ID: ${{ github.event.issue.node_id }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.event.repository.name }}
         run: |
           echo "Issue ID: $ISSUE_ID"
           echo "Issue Number: $ISSUE_NUMBER"
           echo "Searching for issue in project 145..."
 
-          # Query project with pagination support
-          gh api graphql -f query='
+          # First get the project ID
+          PROJECT_DATA=$(gh api graphql -f query='
             query($org: String!, $number: Int!) {
               organization(login: $org) {
                 projectV2(number: $number) {
                   id
-                  items(first: 100) {
-                    pageInfo {
-                      hasNextPage
-                      endCursor
-                    }
-                    nodes {
-                      id
-                      content {
-                        ... on Issue {
+                }
+              }
+            }' -f org='NASA-IMPACT' -F number=145)
+
+          PROJECT_ID=$(echo "$PROJECT_DATA" | jq -r '.data.organization.projectV2.id')
+          echo "Project ID: $PROJECT_ID"
+
+          # Fetch all items with pagination
+          CURSOR=""
+          ITEM_ID=""
+          PAGE=1
+
+          while [ -z "$ITEM_ID" ]; do
+            echo "Fetching page $PAGE..."
+
+            if [ -z "$CURSOR" ]; then
+              QUERY_RESULT=$(gh api graphql -f query='
+                query($org: String!, $number: Int!) {
+                  organization(login: $org) {
+                    projectV2(number: $number) {
+                      items(first: 100) {
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                        nodes {
                           id
-                          number
-                          title
+                          content {
+                            ... on Issue {
+                              id
+                              number
+                            }
+                          }
                         }
                       }
                     }
                   }
-                }
-              }
-            }' -f org='NASA-IMPACT' -F number=145 > project_data.json
+                }' -f org='NASA-IMPACT' -F number=145)
+            else
+              QUERY_RESULT=$(gh api graphql -f query='
+                query($org: String!, $number: Int!, $cursor: String!) {
+                  organization(login: $org) {
+                    projectV2(number: $number) {
+                      items(first: 100, after: $cursor) {
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                        nodes {
+                          id
+                          content {
+                            ... on Issue {
+                              id
+                              number
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }' -f org='NASA-IMPACT' -F number=145 -f cursor="$CURSOR")
+            fi
 
-          cat project_data.json
+            # Check if issue is in this page
+            ITEM_ID=$(echo "$QUERY_RESULT" | jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id')
 
-          PROJECT_ID=$(jq -r '.data.organization.projectV2.id' project_data.json)
-          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+            if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+              echo "Found issue in page $PAGE"
+              break
+            fi
 
-          echo "Project ID: $PROJECT_ID"
+            # Check if there are more pages
+            HAS_NEXT_PAGE=$(echo "$QUERY_RESULT" | jq -r '.data.organization.projectV2.items.pageInfo.hasNextPage')
+
+            if [ "$HAS_NEXT_PAGE" = "false" ]; then
+              echo "Issue #$ISSUE_NUMBER not found in project after checking all pages"
+              exit 0
+            fi
+
+            CURSOR=$(echo "$QUERY_RESULT" | jq -r '.data.organization.projectV2.items.pageInfo.endCursor')
+            PAGE=$((PAGE + 1))
+          done
+
           echo "Item ID: $ITEM_ID"
 
           if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
@@ -113,8 +168,6 @@ jobs:
               echo "$DELETE_RESULT"
               exit 1
             fi
-          else
-            echo "Issue #$ISSUE_NUMBER not found in project (may have been already removed or not added)"
           fi
 
   remove-from-odd-project:

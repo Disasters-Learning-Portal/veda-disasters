@@ -59,14 +59,14 @@ export default function RootLayout({
           <Header />
 
           {/* Global site-wide banners */}
-          <div className="usa-alert usa-alert--error" role="alert">
+          {/* <div className="usa-alert usa-alert--error" role="alert">
             <div className="usa-alert__body">
               <h4 className="usa-alert__heading">Under Maintenance</h4>
               <p className="usa-alert__text">
                 This website is currently being migrated. Some services and webpages may not work as expected.
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div className="usa-alert usa-alert--info" role="status" aria-live="polite">
             <div className="usa-alert__body">

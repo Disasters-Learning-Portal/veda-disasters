@@ -89,6 +89,12 @@ export const navItems: NavItem[] = [
     type: 'dropdown',
     children: [
       {
+        id: 'eventGallery',
+        title: 'Activation Event Gallery',
+        to: '/data-catalog',
+        type: 'internalLink',
+      },
+      {
         id: 'dataViz',
         title: 'Data Visualization',
         to: '/themes/prepare',

@@ -42,9 +42,12 @@ layers:
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
     stacCol:  sentinel-2-all-vars-tiles-daily
     name: Experimental Binary Normalized Difference Vegetation Index
-    type: raster 
+    type: raster
     initialDatetime: newest
     description: The Experimental Binary NDVI change product is highlighting areas that experienced change (of any kind) since the pre-event Copernicus Sentinel-2 pass (October 2024) used in the analysis. The product is further filters to reduce noise and focus the identification on the more pronounced areas of change in an effort to identify areas that may have experienced damage during Hurricane Helene's passage and associated water and wind impacts.
+    media:
+      src: /images/dataset/Helene_BlackMarbleBYK_thumbnail.png
+      alt: Experimental Binary Normalized Difference Vegetation Index for Hurricane Helene
     sourceParams:
       assets: ndviChange
       resampling: nearest
@@ -86,6 +89,9 @@ layers:
     name: Sentinel-1 RGB
     type: raster
     description: 'Sentinel 1 RGB'
+    media:
+      src: /images/dataset/Helene_BlackMarbleBYK_thumbnail.png
+      alt: Sentinel-1 RGB for Hurricane Helene
     sourceParams:
       resampling: nearest
       nodata: 0
@@ -111,9 +117,12 @@ layers:
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
     stacCol:  blackmarble-all-vars-daily
     name: BRDF
-    type: raster 
+    type: raster
     initialDatetime: newest
     description: 'Blackmarble BRDF'
+    media:
+      src: /images/dataset/Helene_BlackMarbleBYK_thumbnail.png
+      alt: Black Marble BRDF for Hurricane Helene
     sourceParams:
       assets: brdf
       resampling: bilinear
@@ -160,9 +169,12 @@ layers:
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
     stacCol:  opera-all-vars-daily
     name: Opera DSWx Water Extent (BWTR)
-    type: raster 
+    type: raster
     initialDatetime: newest
     description: 'Opera DSWx Water Extent - BWTR'
+    media:
+      src: /images/dataset/Helene_BlackMarbleBYK_thumbnail.png
+      alt: Opera DSWx Water Extent for Hurricane Helene
     sourceParams:
       assets: hls-BWTR
       resampling: nearest
@@ -193,9 +205,12 @@ layers:
     tileApiEndpoint: https://dev.openveda.cloud/api/raster
     stacCol:  sentinel-1-all-vars-subdaily
     name: Sentinel 1 Water Extent
-    type: raster 
+    type: raster
     initialDatetime: newest
     description: 'Sentinel 1 Water Extent'
+    media:
+      src: /images/dataset/Helene_BlackMarbleBYK_thumbnail.png
+      alt: Sentinel 1 Water Extent for Hurricane Helene
     sourceParams:
       assets: hydrosar-wm
       resampling: nearest

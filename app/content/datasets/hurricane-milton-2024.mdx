@@ -38,8 +38,11 @@ layers:
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     stacCol:  VIIRS_NOAA20_DayNightBand_AtSensor_M15
     name: Black Marble (Blue/Yellow) Nighttime Light Emissions
-    type: wmts 
+    type: wmts
     description: At sensor nighttime radiance observed by the Suomi NPP VIIRS Day/Night band.
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Black Marble Nighttime Light Emissions for Hurricane Milton
     sourceParams:
       layers: VIIRS_NOAA20_DayNightBand_AtSensor_M15
       version: 1.3.0
@@ -88,6 +91,9 @@ layers:
     type: raster 
     initialDatetime: newest
     description: 'Sentinel 1 Water Extent'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: hydrosar-wm
       resampling: nearest
@@ -110,6 +116,9 @@ layers:
     name: Sentinel 1 - HydroSAR
     type: raster 
     description: 'sentinel-1-S1A_rgb_gpufed'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       resampling: bilinear
       assets: rgb
@@ -156,6 +165,9 @@ layers:
     type: raster 
     initialDatetime: newest
     description: 'Opera DSWx Water Extent - WTR'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: hls-WTR
       resampling: nearest
@@ -190,6 +202,9 @@ layers:
     name: Opera DSWx Water Extent Change Map
     type: raster 
     description: 'Opera DSWx Change Map Water Extent'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: hls-changeMap-date2
       resampling: nearest
@@ -221,6 +236,9 @@ layers:
     name: Opera VEG ANOM MAX
     type: raster 
     description: 'Opera VEG ANOM MAX'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: VEG-ANOM-MAX
       resampling: nearest
@@ -273,6 +291,9 @@ layers:
     name: Opera GEN ANOM MAX
     type: raster 
     description: 'Opera GEN ANOM MAX'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: GEN-ANOM-MAX
       resampling: nearest
@@ -325,6 +346,9 @@ layers:
     name: UAVSAR
     type: raster 
     description: 'UAVSAR'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     initialDatetime: newest
     sourceParams:
       assets: class
@@ -356,6 +380,9 @@ layers:
     type: raster 
     initialDatetime: newest
     description: The Experimental Binary NDVI change product is highlighting areas that experienced change (of any kind) since the pre-event Copernicus Sentinel-2 pass (October 2024) used in the analysis. The product is further filters to reduce noise and focus the identification on the more pronounced areas of change in an effort to identify areas that may have experienced damage during Hurricane Helene's passage and associated water and wind impacts.
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: ndviChange
       resampling: nearest
@@ -390,6 +417,9 @@ layers:
     name: TrueColor
     type: raster 
     description: 'TrueColor'
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     initialDatetime: newest
     sourceParams:
       assets: trueColor
@@ -417,6 +447,9 @@ layers:
     type: raster 
     initialDatetime: newest
     description: Landsat False Color
+    media:
+      src: /images/story/milton-iss-1.png
+      alt: Hurricane Milton layer
     sourceParams:
       assets: colorInfrared
       bidx: 

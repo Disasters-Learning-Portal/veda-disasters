@@ -3,6 +3,7 @@ import React from 'react';
 import { CatalogContent } from '@lib';
 import { useFiltersWithQSNextJS } from '../../hooks/use-filters-with-qs-nextjs';
 import Providers from '../providers';
+import './catalog.css';
 
 /**
  * Catalog component that displays filtered datasets

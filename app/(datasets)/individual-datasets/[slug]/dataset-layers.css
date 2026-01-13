@@ -1,0 +1,32 @@
+/* Make all catalog card images the same size */
+.catalog-card img,
+[class*="Card"] img,
+[class*="card"] img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+
+
+/* Constrain card title to single line */
+.catalog-card h3,
+[class*="Card"] h3,
+[class*="card"] h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Constrain card description */
+.catalog-card p,
+[class*="Card"] p,
+[class*="card"] p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.5em;
+  max-height: 4.5em;
+}

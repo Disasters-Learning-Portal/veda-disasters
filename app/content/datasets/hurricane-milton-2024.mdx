@@ -1,10 +1,10 @@
 ---
 id: hurricane-milton-2024
-name: Datasets supporting 2024 Hurricane Milton Data Story
-description: Nighttime light emissions observed by Suomi NPP VIIRS Day/Night Band in a linear latitude-longitude projection and gridded at 500m
+name: Hurricane Milton 2024
+description: Nighttime light emissions observed by Suomi NPP VIIRS Day/Night Band in a linear latitude-longitude projection.
 
 media:
-  src: /images/story/milton-iss-1.png
+  src: /images/story/milton-iss-1-thumb.png
   alt: Night Light Map
   author:
     name:  Earth Observatory NASA
@@ -16,10 +16,6 @@ taxonomy:
   - name: Source
     values:
       - NASA
-      - NOAA
-  - name: Product Type
-    values:
-      - Event
   - name: Event
     values:
       - 2024 Hurricane Milton
@@ -41,7 +37,7 @@ layers:
     type: wmts
     description: At sensor nighttime radiance observed by the Suomi NPP VIIRS Day/Night band.
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Black Marble Nighttime Light Emissions for Hurricane Milton
     sourceParams:
       layers: VIIRS_NOAA20_DayNightBand_AtSensor_M15
@@ -92,7 +88,7 @@ layers:
     initialDatetime: newest
     description: 'Sentinel 1 Water Extent'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: hydrosar-wm
@@ -117,7 +113,7 @@ layers:
     type: raster 
     description: 'sentinel-1-S1A_rgb_gpufed'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       resampling: bilinear
@@ -166,7 +162,7 @@ layers:
     initialDatetime: newest
     description: 'Opera DSWx Water Extent - WTR'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: hls-WTR
@@ -203,7 +199,7 @@ layers:
     type: raster 
     description: 'Opera DSWx Change Map Water Extent'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: hls-changeMap-date2
@@ -237,7 +233,7 @@ layers:
     type: raster 
     description: 'Opera VEG ANOM MAX'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: VEG-ANOM-MAX
@@ -292,7 +288,7 @@ layers:
     type: raster 
     description: 'Opera GEN ANOM MAX'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: GEN-ANOM-MAX
@@ -347,7 +343,7 @@ layers:
     type: raster 
     description: 'UAVSAR'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     initialDatetime: newest
     sourceParams:
@@ -381,7 +377,7 @@ layers:
     initialDatetime: newest
     description: The Experimental Binary NDVI change product is highlighting areas that experienced change (of any kind) since the pre-event Copernicus Sentinel-2 pass (October 2024) used in the analysis. The product is further filters to reduce noise and focus the identification on the more pronounced areas of change in an effort to identify areas that may have experienced damage during Hurricane Helene's passage and associated water and wind impacts.
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: ndviChange
@@ -418,7 +414,7 @@ layers:
     type: raster 
     description: 'TrueColor'
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     initialDatetime: newest
     sourceParams:
@@ -448,7 +444,7 @@ layers:
     initialDatetime: newest
     description: Landsat False Color
     media:
-      src: /images/story/milton-iss-1.png
+      src: /images/story/milton-iss-1-thumb.png
       alt: Hurricane Milton layer
     sourceParams:
       assets: colorInfrared

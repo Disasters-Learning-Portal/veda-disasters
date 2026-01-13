@@ -97,7 +97,7 @@ export const navItems: NavItem[] = [
       {
         id: 'dataViz',
         title: 'Data Visualization',
-        to: '/themes/prepare',
+        to: '/exploration',
         type: 'internalLink',
       },
       {

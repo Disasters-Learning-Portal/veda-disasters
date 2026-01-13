@@ -1,8 +1,13 @@
 import React from 'react';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { getDatasets } from 'app/content/utils/mdx';
 import { notFound } from 'next/navigation';
-import LayerCardsGrid from './layer-cards-grid';
+
+// @NOTE: Dynamically load to ensure only CSR since this depends ContextProviders for routing and etc...
+const DatasetLayers = dynamic(() => import('./dataset-layers'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>, // @NOTE @TODO: We need a loading state!!!
+});
 
 export default function IndividualDatasetsPage({ params }: { params: any }) {
   const datasets = getDatasets();
@@ -18,19 +23,12 @@ export default function IndividualDatasetsPage({ params }: { params: any }) {
   return (
     <div className="grid-container">
       <section>
-        <div className="margin-top-8 margin-bottom-5">
+        <div className="margin-top-8 margin-bottom-3">
           <h1 className="font-sans-xl">{metadata.name}</h1>
           <p className="font-sans-md margin-top-1">{metadata.description}</p>
         </div>
 
-        <LayerCardsGrid layers={layers} parentMedia={metadata.media} />
-
-        {/* Back link */}
-        <div className="margin-bottom-5">
-          <Link href="/data-catalog" className="usa-button usa-button--outline">
-            ← Back to Event Catalog
-          </Link>
-        </div>
+        <DatasetLayers layers={layers} />
       </section>
     </div>
   );

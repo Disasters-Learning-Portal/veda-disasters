@@ -19,15 +19,21 @@ export function useDataStore() {
 
 // @TODO: Decided how to handle function as mapLabel from VEDA UI
 // https://github.com/NASA-IMPACT/veda-ui/issues/1377
-function updateMapLabels(data) { 
+function updateMapLabels(data) {
+  if (!data || !Array.isArray(data)) {
+    return data;
+  }
+
   return data.map((dataset) => {
     if (dataset.metadata && dataset.metadata.layers) {
       dataset.metadata.layers.forEach((layer) => {
         if (layer.mapLabel) {
-          layer.mapLabel = eval(layer.mapLabel);
+          // Use Function constructor instead of eval for better scoping
+          layer.mapLabel = new Function('return ' + layer.mapLabel)();
         }
         if (layer.compare && layer.compare.mapLabel) {
-          layer.compare.mapLabel = eval(layer.compare.mapLabel);
+          // Use Function constructor instead of eval for better scoping
+          layer.compare.mapLabel = new Function('return ' + layer.compare.mapLabel)();
         }
       });
     }

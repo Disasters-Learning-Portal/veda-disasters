@@ -4,15 +4,16 @@ import { getStoriesMetadata } from 'app/content/utils/mdx';
 import DisastersWhiteMark from 'app/components/disasters-white-mark.js';
 import HeroVideo from 'app/components/hero-video';
 
+const storyIds = ['respond-featured-story', 'respond-mapping-flood-impacts', 'respond-news-update'];
+
 const featuredStories = getStoriesMetadata()
+  .filter((d) => storyIds.includes(d.slug))
+  .sort((a, b) => storyIds.indexOf(a.slug) - storyIds.indexOf(b.slug))
   .map((d) => ({
     ...d.metadata,
-    path: `data-catalog/${d.slug}`,
-  }))
-  .filter((_d, idx) => idx < 3);
-
-const topStory = featuredStories[0];
-const otherStories = featuredStories.slice(1);
+    slug: d.slug,
+    path: `events/${d.slug}`,
+  }));
 
 export default function HomePage() {
   return (

@@ -11,7 +11,7 @@ export default function LayerCards({ layers, parentMedia }: LayerCardsProps) {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
       {layers.map((layer: any, index: number) => {
         const media = layer.media || parentMedia || {
-          src: '/images/event/data-view.png',
+          src: 'https://placehold.co/409x285',
           alt: layer.name || 'Dataset layer'
         };
 

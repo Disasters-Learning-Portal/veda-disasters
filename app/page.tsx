@@ -62,7 +62,7 @@ export default function HomePage() {
         <div className="position-relative" style={{ zIndex: 2, marginTop: '9rem', paddingLeft: '3rem', paddingRight: '3rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', width: '100%' }}>
             <a href="/themes/prepare" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Prepare" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+              <img src="https://placehold.co/409x285" alt="Prepare" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>PREPARE</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -72,7 +72,7 @@ export default function HomePage() {
               </div>
             </a>
             <a href="/themes/respond" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Respond" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+              <img src="https://placehold.co/409x285" alt="Respond" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RESPOND</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -82,7 +82,7 @@ export default function HomePage() {
               </div>
             </a>
             <a href="/themes/recover" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Recover" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+              <img src="https://placehold.co/409x285" alt="Recover" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RECOVER</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -92,7 +92,7 @@ export default function HomePage() {
               </div>
             </a>
             <a href="/themes/resilience" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Resilience" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+              <img src="https://placehold.co/409x285" alt="Resilience" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RESILIENCE</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>

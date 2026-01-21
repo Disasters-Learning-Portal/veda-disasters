@@ -125,7 +125,7 @@ export default function HomePage() {
 
 
       {/* Full-width Data Portal Visualization */}
-      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '80%', margin: '0 auto', marginTop: '11rem' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Data Portal Visualization
         </h2>
@@ -137,7 +137,7 @@ export default function HomePage() {
       </div>
 
       {/* Full-width Resources & Learnings */}
-      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '80%', margin: '0 auto', marginTop: '9rem' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Resources & Learnings
         </h2>
@@ -149,7 +149,7 @@ export default function HomePage() {
       </div>
 
       {/* Homepage Connect */}
-      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '90%', margin: '0 auto', marginTop: '14rem' }}>
         <img
           src="/images/homepage/homepage-connect.png"
           alt="Connect with the Disasters community"

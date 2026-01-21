@@ -68,7 +68,7 @@ export default function RootLayout({
             </div>
           </div> */}
 
-          <div className="usa-alert usa-alert--info" role="status" aria-live="polite">
+          {/* <div className="usa-alert usa-alert--info" role="status" aria-live="polite">
             <div className="usa-alert__body">
               <h4 className="usa-alert__heading">Activation Status</h4>
               <p className="usa-alert__text">
@@ -82,7 +82,7 @@ export default function RootLayout({
                 affecting the Florida peninsula.
               </p>
             </div>
-          </div>
+          </div> */}
 
           <main id="pagebody" className="flex-fill" tabIndex={-1}>
             {children}

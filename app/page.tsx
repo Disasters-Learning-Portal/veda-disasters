@@ -79,7 +79,7 @@ export default function HomePage() {
         {/* Action Cards - full width across hero, outside grid-container */}
         <div className="position-relative" style={{ zIndex: 2, marginTop: '9rem', paddingLeft: '3rem', paddingRight: '3rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', width: '100%' }}>
-            <a href="/themes/prepare" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#0C313D', position: 'relative' }}>
+            <a href="/themes/prepare" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
               <img src="/images/event/blue-card.png" alt="Prepare" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>PREPARE</h3>
@@ -89,7 +89,7 @@ export default function HomePage() {
                 <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
               </div>
             </a>
-            <a href="/themes/respond" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#0C313D', position: 'relative' }}>
+            <a href="/themes/respond" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
               <img src="/images/event/blue-card.png" alt="Respond" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RESPOND</h3>
@@ -99,7 +99,7 @@ export default function HomePage() {
                 <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
               </div>
             </a>
-            <a href="/themes/recover" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#0C313D', position: 'relative' }}>
+            <a href="/themes/recover" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
               <img src="/images/event/blue-card.png" alt="Recover" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RECOVER</h3>
@@ -109,7 +109,7 @@ export default function HomePage() {
                 <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
               </div>
             </a>
-            <a href="/themes/resilience" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#0C313D', position: 'relative' }}>
+            <a href="/themes/resilience" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
               <img src="/images/event/blue-card.png" alt="Resilience" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RESILIENCE</h3>
@@ -125,7 +125,7 @@ export default function HomePage() {
 
 
       {/* Full-width Data Portal Visualization */}
-      <div style={{ width: '60%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Data Portal Visualization
         </h2>
@@ -137,7 +137,7 @@ export default function HomePage() {
       </div>
 
       {/* Full-width Resources & Learnings */}
-      <div style={{ width: '60%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Resources & Learnings
         </h2>

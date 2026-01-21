@@ -98,6 +98,11 @@ body {
       font-weight: 600 !important;
       color: white !important;  // Make navigation text white
     }
+
+    // Style for open dropdown buttons
+    button[aria-expanded="true"] {
+      background-color: #0C323D !important;
+    }
   }
 
   .usa-nav__link {
@@ -113,6 +118,20 @@ body {
       font-size: 1.25rem !important;
       font-weight: 600 !important;
       color: white !important;  // Make navigation text white
+    }
+  }
+
+  // Dropdown menu styling
+  .usa-nav__submenu {
+    background-color: #0C323D !important;  // Dropdown background color
+  }
+
+  .usa-nav__submenu-item {
+    a {
+      color: white !important;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
     }
   }
 }

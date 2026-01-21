@@ -135,7 +135,7 @@ export default function Header() {
     <VedaUIConfigProvider>
       <div className="custom-header-size">
         <PageHeader
-          title={'NASA Disasters Program'}
+          title={'Disasters Program'}
           mainNavItems={navItems}
           subNavItems={[]}
           logoSvg={

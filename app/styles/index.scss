@@ -9,6 +9,19 @@ body {
   box-sizing: border-box;
 }
 
+// Change all hyperlinks to black
+a {
+  color: #000000 !important;
+  
+  &:visited {
+    color: #000000 !important;
+  }
+  
+  &:hover {
+    color: #333333 !important;
+  }
+}
+
 .veda__hug-reset-container {
   grid-column: 1 / -1;
 }
@@ -46,6 +59,13 @@ body {
   }
 }
 
+// BETA tag grayscale styling
+#logo-container-beta-tag {
+  background-color: #6b6b6b !important;
+  color: #e5e5e5 !important;
+  border-color: #8a8a8a !important;
+}
+
 // Header navigation items sizing
 .custom-header-size {
   .usa-nav__primary {
@@ -77,6 +97,36 @@ body {
       font-weight: 600 !important;
     }
   }
+}
+
+// Dropdown menu styling
+.usa-nav__submenu {
+  background-color: #3d4551 !important;
+  
+  .usa-nav__submenu-item {
+    a {
+      color: #ffffff !important;
+      
+      &:hover {
+        background-color: #4a5563 !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+// Primary navigation hover state
+.usa-nav__primary-item {
+  a, button {
+    &:hover {
+      background-color: #3d4551 !important;
+    }
+  }
+}
+
+// Active/expanded dropdown button state
+.usa-nav__primary button[aria-expanded="true"] {
+  background-color: #3d4551 !important;
 }
 
 // Layer cards grid
@@ -153,4 +203,25 @@ body {
   font-weight: 500;
   color: #333;
   cursor: default;
+}
+
+// Grayscale footer secondary section
+.usa-footer__secondary-section {
+  background-color: #a9aeb1 !important;
+  
+  a {
+    color: #1b1b1b !important;
+    
+    &:hover {
+      color: #454545 !important;
+    }
+  }
+  
+}
+
+// Footer primary section background
+.usa-footer__primary-section,
+.usa-footer__primary-container,
+.footer_primary_container {
+  background-color: #dfe1e2 !important;
 }

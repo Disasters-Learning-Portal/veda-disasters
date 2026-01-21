@@ -15,7 +15,7 @@ const SVGComponent = (props) => (
   >
     <style type="text/css">
       {
-        "\n\t.st0{fill:#0032A0;}\n\t.st1{fill:none;}\n\t.st2{fill:#E4002B;}\n\t.st3{fill:#FFFFFF;}\n"
+        "\n\t.st0{fill:#4a4a4a;}\n\t.st1{fill:none;}\n\t.st2{fill:#666666;}\n\t.st3{fill:#d1d1d1;}\n"
       }
     </style>
     <path

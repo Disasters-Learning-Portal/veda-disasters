@@ -21,15 +21,15 @@ const VEDA_OVERRIDE_THEME = {
   },
 
   color: {
-    base: '#2c3e50',
-    primary: '#d83933',
-    link: '#6f3331',
-    danger: '#FC3D21',
-    infographicA: '#fcab10',
-    infographicB: '#f4442e',
-    infographicC: '#b62b6e',
-    infographicD: '#2ca58d',
-    infographicE: '#2276ac',
+    base: '#1b1b1b',
+    primary: '#1b1b1b',
+    link: '#565c65',
+    danger: '#565c65',
+    infographicA: '#565c65',
+    infographicB: '#565c65',
+    infographicC: '#565c65',
+    infographicD: '#565c65',
+    infographicE: '#565c65',
   },
   type: {
     base: {

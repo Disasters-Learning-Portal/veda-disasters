@@ -62,6 +62,7 @@ body {
     align-items: center !important;
     background-color: #0C313D !important;  // Dark blue-green background
     padding: 1rem 2rem !important;  // Add padding for better spacing
+    border-bottom: none !important;  // Remove horizontal line
   }
 
   .usa-logo {
@@ -75,6 +76,7 @@ body {
 
   .usa-nav {
     flex-grow: 0;  // Prevent nav from growing unnecessarily
+    border-top: none !important;  // Remove horizontal line above nav
   }
 
   .usa-nav__primary {

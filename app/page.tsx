@@ -129,10 +129,16 @@ export default function HomePage() {
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Data Portal Visualization
         </h2>
+        <iframe
+          id="data-portal-visualization"
+          style={{ height: '700px', width: '100%', display: 'block', border: 'none', overflow: 'hidden' }}
+          src="https://nasa.maps.arcgis.com/apps/webappviewer/index.html?id=7f9055f1e97f45f696e7a34bc4bd0002"
+          title="Tropical Cyclone Interactive Dashboard showing current activations"
+        />
         <img
-          src="/images/homepage/tropical-cyclone-dashboard.png"
-          alt="Tropical Cyclone Interactive Dashboard showing current activations"
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+          src="/images/homepage/tropical-cyclone-small.png"
+          alt="Tropical cyclone visualization"
+          style={{ width: '100%', height: 'auto', display: 'block', marginTop: '2rem' }}
         />
       </div>
 

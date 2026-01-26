@@ -88,12 +88,12 @@ export const navItems: NavItem[] = [
     // @ts-expect-error until veda-ui fixes its types: NavItem type enum (see https://github.com/NASA-IMPACT/veda-ui/issues/1882)
     type: 'dropdown',
     children: [
-      {
-        id: 'eventGallery',
-        title: 'Activation Event Gallery',
-        to: '/data-catalog',
-        type: 'internalLink',
-      },
+      // {
+      //   id: 'eventGallery',
+      //   title: 'Activation Event Gallery',
+      //   to: '/data-catalog',
+      //   type: 'internalLink',
+      // },
       {
         id: 'dataViz',
         title: 'Data Visualization',

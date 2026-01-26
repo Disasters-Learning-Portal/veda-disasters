@@ -135,6 +135,9 @@ export default function HomePage() {
           src="https://nasa.maps.arcgis.com/apps/webappviewer/index.html?id=7f9055f1e97f45f696e7a34bc4bd0002"
           title="Tropical Cyclone Interactive Dashboard showing current activations"
         />
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left', marginTop: '10rem' }}>
+          Recent DRCS Activations
+        </h2>
         <a href="/data-catalog/hurricane-helene-2024" style={{ display: 'block' }}>
           <img
             src="/images/homepage/tropical-cyclone-small.png"

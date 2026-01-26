@@ -128,7 +128,7 @@ export default function HomePage() {
                   scrolling="no"
                   frameBorder="0"
                   style={{height:'700px',width:'960px'}}
-                  src="https://maps.disasters.nasa.gov/arcgis/apps/MapSeries/index.html?appid=ab7723584fe847449faaa2e62d3bef74"
+                  src="https://nasa.maps.arcgis.com/apps/webappviewer/index.html?id=7f9055f1e97f45f696e7a34bc4bd0002"
                   >
       </iframe>
         </div>

@@ -25,7 +25,7 @@ function deepRemoveUndefined(obj: any): any {
   if (typeof obj === 'object') {
     const result: any = {};
     for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
         const value = obj[key];
         if (value !== undefined && value !== null) {
           result[key] = deepRemoveUndefined(value);

@@ -103,7 +103,7 @@ export const navItems: NavItem[] = [
       {
         id: 'notebooks',
         title: 'Jupyter Notebooks / Data Processing',
-        to: '/themes/respond',
+        to: '/about',
         type: 'internalLink',
       },
     ],
@@ -117,13 +117,13 @@ export const navItems: NavItem[] = [
       {
         id: 'learning',
         title: 'Learning',
-        to: '/themes/prepare',
+        to: '/about',
         type: 'internalLink',
       },
       {
         id: 'resources',
         title: 'Resources',
-        to: '/themes/respond',
+        to: '/about',
         type: 'internalLink',
       },
     ],

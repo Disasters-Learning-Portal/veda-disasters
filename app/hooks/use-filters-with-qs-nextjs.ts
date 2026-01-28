@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useQsStateCreator from '@teamimpact/veda-ui/node_modules/qs-state-hook/dist/index.js';
+import useQsStateCreator from 'qs-state-hook';
 import { omit, set } from 'lodash';
 
 /**

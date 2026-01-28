@@ -16,14 +16,8 @@ export default function LayerCardsGrid({ layers, parentMedia }: LayerCardsGridPr
           alt: layer.name || 'Dataset layer'
         };
 
-        // Construct the exploration URL with the correct format
-        // Format: /exploration?datasets=[{"id":"parent-dataset-id","layer":"layer-id"}]
-        // Pass both the parent dataset ID and the layer ID to ensure correct dataset is loaded
-        const datasetParam = JSON.stringify([{
-          id: layer.parentDataset?.id || layer.id,
-          layer: layer.id
-        }]);
-        const explorationUrl = `/exploration?datasets=${encodeURIComponent(datasetParam)}`;
+        // Link to exploration page (users will select the dataset manually)
+        const explorationUrl = `/exploration`;
 
         return (
           <div key={layer.id || index} className="layer-card">

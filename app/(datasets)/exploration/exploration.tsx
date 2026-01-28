@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ExplorationAndAnalysis,
   DatasetSelectorModal,
@@ -14,20 +14,12 @@ import Providers from '../providers';
 export default function ExplorationAnalysis({ datasets }: { datasets: any }) {
   const setExternalDatasets = useSetAtom(externalDatasetsAtom);
 
-  // Set external datasets in an effect to avoid render phase updates
-  useEffect(() => {
-    setExternalDatasets(datasets);
-  }, [datasets, setExternalDatasets]);
+  setExternalDatasets(datasets);
 
   const [timelineDatasets, setTimelineDatasets] = useTimelineDatasetAtom();
-  const [datasetModalRevealed, setDatasetModalRevealed] = useState(false);
-
-  // Show modal if no datasets are selected
-  useEffect(() => {
-    if (timelineDatasets.length === 0) {
-      setDatasetModalRevealed(true);
-    }
-  }, [timelineDatasets.length]);
+  const [datasetModalRevealed, setDatasetModalRevealed] = useState(
+    !timelineDatasets.length,
+  );
 
   const openModal = () => {
     setDatasetModalRevealed(true);

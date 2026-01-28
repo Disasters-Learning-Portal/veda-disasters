@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { getTransformedDatasetMetadata } from 'app/content/utils/mdx';
 import { PageHero } from 'app/lib';
@@ -15,9 +15,7 @@ export default function Page() {
   const datasets: any[] = getTransformedDatasetMetadata();
   return (
     <section>
-      <Suspense fallback={<p>Loading...</p>}>
-        <ExplorationAnalysis datasets={datasets} />
-      </Suspense>
+      <ExplorationAnalysis datasets={datasets} />
     </section>
   );
 }

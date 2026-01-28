@@ -1,0 +1,18 @@
+{
+  "collections": ["alos2-all-vars-daily-TEST-addMetadata"],
+  "filter": {
+    "op": "not",
+    "args": [
+      {
+        "op": "isNull",
+        "args": [
+          {
+            "property": "event:name"
+          }
+        ]
+      }
+    ]
+  },
+  "filter-lang": "cql2-json",
+  "limit": 100
+}

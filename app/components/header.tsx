@@ -106,6 +106,13 @@ export const navItems: NavItem[] = [
         to: '/about',
         type: 'internalLink',
       },
+      {
+        id: 'data-demo',
+        title: 'Demo Visualization Updates',
+        to: 'https://deploy-preview-966--visex.netlify.app/exploration?datasets=%5B%7B%22id%22%3A%22landsat-demo%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%5D&taxonomy=%7B%7D',
+        type: 'internalLink',
+      },
+
     ],
   },
   {

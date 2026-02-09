@@ -9,8 +9,6 @@ const StoriesHub = dynamic(() => import('./hub'), {
 });
 
 export default function Page() {
-  console.log('getStoriesMetadata()', getStoriesMetadata());
-
   //TO DO: Revisit long term solution for outward linking story cards.
   const events = getStoriesMetadata().map((d) => ({
     ...d.metadata,

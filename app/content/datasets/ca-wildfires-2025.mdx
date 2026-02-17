@@ -1,7 +1,7 @@
 ---
 id: ca-wildfires-2025
-name: California Wildfires January 2025
-description: Unprecedented flames reshape Southern California’s landscape, economy, and future.
+name: California Wildfires 2025
+description: Unprecedented flames reshape Southern California's landscape, economy, and future.
 media:
   src: /images/dataset/california-wildfire-aviris.png
   alt: False Color Composite satellite imagery of the burned area from the Palisades Fire.
@@ -37,11 +37,14 @@ layers:
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
     name: AVIRIS
     type: wms
-    description: Relative soil moisture (RSM) is a ratio of the volumetric soil moisture between the wilting and saturation points for a given soil type.
+    description: AVIRIS Satellite Imagery for the Southern California Wildfires
     initialDatetime: newest
     projection:
       id: 'equirectangular'
     zoomExtent:
+      - 0
+      - 
+    minZoom: 
       - 0
       - 20
     sourceParams:
@@ -61,54 +64,63 @@ layers:
       temporalResolution: Daily
       unit: uW nm-1 cm-2 sr-1
     media:
-      src: /images/dataset/ca-fires-aviris3-br.png
+      src: /images/dataset/ca-fires-aviris3-br-thumb.png
       alt: AVIRIS3 Normalized Burn Ratio for the January 2025 California Wildfires.
 
   - id: opera_dist_S1_Jan2025_wildfire
-    stacCol: opera_dist_S1_Jan2025_wildfire
+    stacCol: opera-all-vars-daily
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    name: OPERA DIST S1
-    type: wms
-    description: OPERA DIST S1 for the Southern California Wildfires
+    tileApiEndpoint: https://dev.openveda.cloud/api/raster
+    name: OPERA VEG-ANOM-MAX
+    type: raster
+    description: OPERA VEG-ANOM-MAX for the Southern California Wildfires
     initialDatetime: newest
     projection:
       id: 'equirectangular'
+    sourceParams:
+      assets: VEG-ANOM-MAX
+      resampling: bilinear
+      colormap_name: 'inferno'
+      nodata: 255
+      rescale:
+        - 0
+        - 255 
     zoomExtent:
       - 0
       - 20
-    sourceParams:
-      layers: OPERA_DIST_S1
-      version: 1.3.0
-      crs: EPSG:3857
-      nodata: 0
+    analysis:
+      exclude: false
     legend:
       unit:
-        label: Disturbance Category
-      type: categorical 
-      min: 0
-      max: 2
+        label: VEG-ANOM-MAX      
+      type: gradient
+      min: "0"
+      max: "255"
       stops:
-        - color: rgb(255,255,255)
-          label: "No disturbance"
-        - color: rgb(255,204,203)
-          label: "Moderate Disturbance"
-        - color: rgb(255,0,0)
-          label: "High Disturbance"
-    analysis:
-      exclude: true
+        - rgba(0, 0, 4, 1)
+        - rgba(40, 11, 84, 1)
+        - rgba(101, 21, 110, 1)
+        - rgba(159, 42, 99, 1)
+        - rgba(212, 72, 66, 1)
+        - rgba(245, 125, 21, 1)
+        - rgba(252, 255, 164, 1)    
+    compare:
+      datasetId: ca-wildfires-2025
+      layerId: opera_dist_S1_Jan2025_wildfire
+      mapLabel: |
+        ::js ({ dateFns, datetime, compareDatetime }) => {
+          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+        }   
     info:
       source: NASA
-      spatialExtent: Southern California
+      spatialExtent: Southern California 
       temporalResolution: Daily
-      unit: Disturbance Category
-    media:
-      src: /images/dataset/ca-fires-opera-sfc-dist.png
-      alt: S1 OPERA Surface Disturbance for the January 2025 California Wildfires.
+      unit: VEG-ANOM-MAX 
  
   - id: opera_dist_alert_Jan2025_wildfire
     stacCol: opera_dist_alert_Jan2025_wildfire
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    name: OPERA DIST ALERT - VEG_ANOM_MAX
+    name: OPERA - VEG_ANOM_MAX
     type: wms
     description: OPERA DIST ALERT for the Southern California Wildfires
     initialDatetime: newest
@@ -133,13 +145,13 @@ layers:
       temporalResolution: Daily
       unit: Vegetation disturbance status
     media:
-      src: /images/dataset/ca-fires-opera-dist.png
+      src: /images/dataset/ca-fires-opera-dist-thumb.png
       alt: HLS OPERA Disturbance Alert for the January 2025 California Wildfires.
 
   - id: opera_dist_alert_Jan2025_wildfire1
     stacCol: opera_dist_alert_Jan2025_wildfire
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
-    name: OPERA DIST ALERT - VEG_DIST_STATUS_2
+    name: OPERA - VEG_DIST_STATUS_2
     type: wms
     description: OPERA DIST ALERT for the Southern California Wildfires
     initialDatetime: newest
@@ -189,7 +201,7 @@ layers:
       temporalResolution: Daily
       unit: Vegetation disturbance status
     media:
-      src: /images/dataset/ca-fires-opera-dist.png
+      src: /images/dataset/ca-fires-opera-dist-thumb.png
       alt: HLS OPERA Disturbance Alert (Status 2) for the January 2025 California Wildfires.
  
   - id: landsat9_Jan2025_wildfire1
@@ -243,35 +255,45 @@ layers:
       temporalResolution: Daily
       unit: Percentage %
     media:
-      src: /images/dataset/ca-fires-landsat9.png
+      src: /images/dataset/ca-fires-landsat9-thumb.png
       alt: Landsat 9 NBR for the January 2025 California Wildfires.
 
   - id: landsat9_Jan2025_wildfire
-    stacCol: landsat9_Jan2025_wildfire
+    stacCol: landsat-all-vars-tiles-daily
     stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint: https://dev.openveda.cloud/api/raster
     name: LANDSAT 9 Color Infrared
-    type: wms
-    description: LANDSAT 9 for the Southern California Wildfires
+    type: raster
+    description: 'Landsat 9 Color Infrared'
     initialDatetime: newest
-    projection:
-      id: 'equirectangular'
-    zoomExtent:
-      - 0
-      - 20
+    media:
+      src: /images/dataset/ca-fires-landsat9-thumb.png
+      alt: Landsat 9 Color Infrared for the January 2025 California Wildfires
     sourceParams:
-      layers: LANDSAT
-      version: 1.3.0
-      crs: EPSG:3857
+      resampling: bilinear
+      nodata: 0
+      assets: colorInfrared
+      bidx:
+        - 1
+        - 2
+        - 3
+    zoomExtent:
+        - 0
+        - 20
     analysis:
-      exclude: true
+      exclude: false
+    compare:
+      datasetId: ca-wildfires-2025
+      layerId: landsat9_Jan2025_wildfire
+      mapLabel: |
+        ::js ({ dateFns, datetime, compareDatetime }) => {
+          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+        }
     info:
       source: NASA
       spatialExtent: Southern California
       temporalResolution: Daily
-      unit: 
-    media:
-      src: /images/dataset/ca-fires-landsat9.png
-      alt: Landsat 9 Color Infrared for the January 2025 California Wildfires.
+      unit: Color Infrared
 
   - id: optisar_Jan2025_wildfire_EATON
     stacCol: optisar_Jan2025_wildfire
@@ -314,7 +336,7 @@ layers:
       temporalResolution: Daily
       unit: "Severity"
     media:
-      src: /images/dataset/ca-fires-optisar.png
+      src: /images/dataset/ca-fires-optisar-thumb.png
       alt: Optisar fire severity classification for the January 2025 California Wildfires.
 
   - id: optisar_Jan2025_wildfire_PALISADES
@@ -358,7 +380,7 @@ layers:
       temporalResolution: Daily
       unit: "Severity"
     media:
-      src: /images/dataset/ca-fires-optisar.png
+      src: /images/dataset/ca-fires-optisar-thumb.png
       alt: Optisar fire severity classification for the January 2025 California Wildfires.
 ---
 
@@ -369,9 +391,9 @@ layers:
         <img src="/images/event/data-catalog.png" alt="Dataset" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
         <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Event Summary</div>
       </a>
-      <a href="/exploration?datasets=%5B%7B%22id%22%3A%22opera_dist_alert_Jan2025_wildfire1%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22landsat9_Jan2025_wildfire1%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22landsat9_Jan2025_wildfire%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22optisar_Jan2025_wildfire_EATON%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22optisar_Jan2025_wildfire_PALISADES%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22aviris3_burn_ratio_Jan2025_wildfire%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22opera_dist_S1_Jan2025_wildfire%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%5D&taxonomy=%7B%7D&search=&date=2025-01-12T06%3A00%3A00.000Z" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+      <a href="/individual-datasets/ca-wildfires-2025" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
         <img src="/images/event/data-view.png" alt="View Data" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-        <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Visualize</div>
+        <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Dataset Gallery</div>
       </a>
       <a href="https://gis.earthdata.nasa.gov/gis05/rest/services/DISASTERS_CA_WILDFIRES_202501" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
         <img src="/images/event/download-data.png" alt="Download Data" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />

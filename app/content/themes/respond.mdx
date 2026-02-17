@@ -1,0 +1,256 @@
+---
+id: prepare
+name: Respond
+description: See the situation and act faster.
+backgroundColor: C91B6E
+
+media:
+  src: /images/theme-solid-background.png
+  alt: Solid color background
+  author:
+    name:  Earth Observatory NASA
+    url:  https://earthobservatory.nasa.gov
+taxonomy:
+  - name: Disaster
+    values:
+      - Hurricanes and Cyclones
+  - name: Source
+    values:
+      - NASA
+      - NOAA
+  - name: Product Type
+    values:
+      - Event
+  - name: Event
+    values:
+      - 2024 Hurricane Milton
+      
+infoDescription: |
+  ::markdown 
+    - Temporal Extent: October 10, 2023 - Ongoing
+    - Temporal Resolution: Daily
+    - Spatial Extent: Global    
+    - Spatial Resolution: 500m   
+    - Data Units: Watts per square centimeter per steradian (W/cm²/sr)       
+    - Data Type: Operational
+    - Data Latency: Updated daily       
+layers:
+  - id: black-marble-blue-yellow-noaa
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    stacCol:  VIIRS_NOAA20_DayNightBand_AtSensor_M15
+    name: Black Marble (Blue/Yellow) Nighttime Light Emissions
+    type: wmts 
+    description: At sensor nighttime radiance observed by the Suomi NPP VIIRS Day/Night band.
+    sourceParams:
+      layers: VIIRS_NOAA20_DayNightBand_AtSensor_M15
+      version: 1.3.0
+      crs: EPSG:3857
+      colormap_name: ylgrbu
+      rescale:
+        - 0
+        - 1  
+      styles:
+    zoomExtent:
+      - 0
+      - 20
+    analysis:
+      exclude: true
+    legend:
+      unit:
+        label: W/cm²/sr        
+      type: gradient
+      min: "No lights"
+      max: "Lights"
+      stops:
+        - '#00204C'
+        - '#214D70'
+        - '#5B798A'
+        - '#9BA78F'
+        - '#D6D18B'
+        - '#FFF878'
+    compare:
+      datasetId: hurricane-milton-2024
+      layerId: black-marble-blue-yellow-noaa
+      mapLabel: |
+        ::js ({ dateFns, datetime, compareDatetime }) => {
+          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
+        }
+    info:
+      source: NASA
+      spatialExtent: Global 
+      temporalResolution: Daily
+      unit: W/cm²/sr    
+---
+
+<Block>
+  <Prose>
+    #  Overview
+
+   The NASA Disasters Program delivers timely, accurate Earth-science information to support emergency response during disasters. Working directly with federal, state, and local partners, our Disasters Response Coordination System provides up-to-date satellite data that improves situational awareness and helps guide critical response decisions. Our projects transform cutting-edge research into practical, decision-ready tools, shared through the NASA Disasters PORTAL to make complex Earth-science information accessible and usable when time is of the essence. We deliver products that go beyond hazard mapping to reveal real-world impacts — showing where floodwaters have inundated, fires have burned, roads are blocked, and key lifelines disrupted — offering a big-picture view of how disasters affect people and infrastructure. Beyond active events, we strengthen readiness year-round through joint planning, exercises, and information-sharing, ensuring responders are better prepared to protect communities when disasters strike.
+
+  </Prose>
+</Block>
+
+<Block>
+  <Prose>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '120%' }}>
+      <h1>Stories of Impact</h1>
+      <a href="/stories" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#2c3d4f', fontSize: '1.25rem', fontWeight: '600' }}>
+        View all
+        <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#0C313D', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
+        </div>
+      </a>
+    </div>
+  </Prose>
+</Block>
+
+ <Block>
+  <Figure>
+    <div style={{ width: '120%', margin: '0 auto' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '3rem', width: '100%' }}>
+        <a href="/events/respond-featured-story" style={{ display: 'block', borderRadius: '3rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <img src="/images/story/respond-featured-story-ex-background.png" alt="Numerous trees blown over in Florissant, MO from tornadic winds." style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Tracking Tornadoes from Space</div>
+        </a>
+        <a href="/events/respond-mapping-flood-impacts" style={{ display: 'block', borderRadius: '3rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <img src="/images/story/respond-training-ex-background.png" alt="HydroSAR surface water extent data for the central U.S. from April 4-9, 2025. Contains modified Copernicus Sentinel data (2025) processed by ESA." style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Tools You Can Use: Mapping Flood Impacts</div>
+        </a>
+        <a href="/events/respond-news-update" style={{ display: 'block', borderRadius: '3rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <img src="/images/story/respond-news-ex-background.png" alt="This NASA Black Marble imagery shows nighttime lights in Augusta, Georgia, on Sept. 28, 2024, after the city was struck by widespread power outages in the wake of Hurricane Helene." style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>NASA Selects Seven New Projects to Advance Disaster Science</div>
+        </a>
+      </div>
+    </div>
+  </Figure>
+</Block>
+
+<Block>  <Prose>
+
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '120%' }}>
+      <h1>Data Visualization </h1>
+      <a href="/exploration" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#2c3d4f', fontSize: '1.25rem', fontWeight: '600' }}>
+        View all
+        <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#0C313D', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
+        </div>
+      </a>
+    </div>
+    </Prose>
+</Block>
+
+<Block>
+  <Prose>
+    <Figure>
+    <Map
+      datasetId='hurricane-helene-2024'
+      layerId='blackmarble-nighttime-compare'
+      dateTime='2024-09-22'
+      zoom={8}
+      center={[-84.3865, 33.7548]}
+      compareDateTime='2024-10-02'
+    />
+    <Caption
+      attrAuthor='NASA'
+      attrUrl='https://nasa.gov/'
+    >
+    Post-incident water extents (Sept. 26, Sept. 28, and Oct. 3) derived from Sentinel 1 SAR by the Alaskan Satellite Facility. Credits: NASA/MSFC, USGS, ESA Copernicus. Sentinel data used in this derived product, contains modified Copernicus Sentinel data (2019-2022), processed by ESA, Alaska Satellite Facility.
+    </Caption>
+    </Figure>
+  </Prose>
+</Block>
+
+<Block>
+  <Prose>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '120%' }}>
+      <h1>Recent DRCS Activations</h1>
+      <a href="/data-catalog" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#2c3d4f', fontSize: '1.25rem', fontWeight: '600' }}>
+        View all
+        <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#0C313D', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
+        </div>
+      </a>
+    </div>
+  </Prose>
+</Block>
+
+<Block>
+  <Figure>
+    <div style={{ width: '220%', marginLeft: '-60%', marginRight: '-60%', overflow: 'hidden' }}>
+      <a href="/data-catalog/hurricane-helene-2024" style={{ display: 'block', marginLeft: '25%' }}>
+        <img src="/images/homepage/tropical-cyclone-small.png" alt="Tropical cyclone visualization" style={{ width: '100%', height: 'auto', display: 'block', clipPath: 'inset(0 calc(25% + 5px) 0 0)' }} />
+      </a>
+    </div>
+  </Figure>
+</Block>
+
+<Block>
+  <Prose>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '120%' }}>
+      <h1>Story Maps & Data</h1>
+      <a href="/exploration" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#2c3d4f', fontSize: '1.25rem', fontWeight: '600' }}>
+        View all
+        <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#0C313D', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
+        </div>
+      </a>
+    </div>
+  </Prose>
+</Block>
+
+ <Block>
+  <Figure>
+    <div style={{ width: '120%', margin: '0 auto' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '3rem', width: '100%' }}>
+        <a href="/events/hurricane-helene-2024" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <img src="/images/dataset/Helene_BlackMarbleBYK_thumbnail.png" alt="Professional Firefighters Extinguishing Large, High-Priority Part of the Forest Fire." style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Story Map<br/>Hurricane Helene 2024</div>
+        </a>
+     <a href="/events/ca-wildfires-2025" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+ <img src="/images/dataset/ca-fires-burn-severity.thumbnail.jpg" alt="Professional Firefighters Extinguishing Large, High-Priority Part of the Forest Fire." style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>California Wildfires - January 2025</div>
+        </a>
+        <a href="/events/hurricane-milton-2024" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+ <img src="/images/story/milton-iss-1.png" alt="Professional Firefighters Extinguishing Large, High-Priority Part of the Forest Fire." style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Hurricane Milton - October 2024</div>
+        </a>
+      </div>
+    </div>
+    </Figure>
+</Block>
+
+<Block>
+  <Prose>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '120%' }}>
+      <h1>Resources & Learning</h1>
+      <a href="/resources" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', color: '#2c3d4f', fontSize: '1.25rem', fontWeight: '600' }}>
+        View all
+        <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#0C313D', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
+        </div>
+      </a>
+    </div>
+  </Prose>
+</Block>
+
+ <Block>
+  <Figure>
+    <div style={{ width: '120%', margin: '0 auto' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '3rem', width: '100%' }}>
+         <a href="https://docs.openveda.cloud/user-guide/notebooks/quickstarts/hls-visualization.html" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <div style={{ width: '100%', height: '300px', backgroundColor: '#4A90E2' }}></div>
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Jupyter Notebook<br/>HLS Search</div>
+        </a>
+        <a href="https://gis.earthdata.nasa.gov/gis05/rest/services" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <div style={{ width: '100%', height: '300px', backgroundColor: '#28A745' }}></div>
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>GIS Data Access<br/>Burma Earthquake 2025</div>
+        </a>
+       <a href="https://docs.openveda.cloud/user-guide/notebooks/tutorials/mapping-fires.html" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+          <div style={{ width: '100%', height: '300px', backgroundColor: '#6C757D' }}></div>
+          <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Veda Docs</div>
+        </a>
+      </div>
+    </div>
+    </Figure>
+</Block>

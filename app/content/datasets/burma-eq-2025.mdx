@@ -1,10 +1,10 @@
 ---
 id: burma-eq-2025
-name: Datasets Supporting 2025 Burma Earthquake Data Story
+name: Burma Earthquake 2025
 isHidden: false
 description: Datasets supporting the data story on the damaging March 28, 2025 Burma magnitude 7.7 earthquake. 
 media:
-  src: /images/story/burma-eq-background.jpg
+  src: /images/story/burma-eq-background-thumb.jpg
   alt: Collapsed building in Mandalay, Burma.
   author:
     name: Cai Yang/AP
@@ -16,9 +16,6 @@ taxonomy:
     values:
       - NASA
       - Planet Labs
-  - name: Product Type
-    values:
-      - Event
   - name: Event
     values:
       - 2025 Burma Earthquake
@@ -34,21 +31,25 @@ infoDescription: |
     - Data Latency: N/A
 
 layers:
-  - id: burma-eq-night-lights
-    stacCol: burma-eq-night-lights
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
+  - id: blackmarble-all-vars-daily
+    stacCol: blackmarble-all-vars-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
     name:  Black Marble Night Lights - 2025 Burma Earthquake
     type: raster
     description: NASA's Black Marble Night Lights dataset for before and after the 2025 Burma earthquake shows massive power outages in the Mandalay area.
+    media:
+      src: /images/story/burma-eq-background-thumb.jpg
+      alt: 2025 Burma Earthquake layer
     initialDatetime: newest
     zoomExtent:
       - 0
       - 20
     sourceParams:
+      assets: bm
       colormap_name: greys_r
       resampling: bilinear
-      rescale: -0,255
+      rescale: 0,255
       nodata: -999
     legend:
       unit:
@@ -66,8 +67,8 @@ layers:
         - "#aaaaaa"
         - "#ffffff"
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-night-lights
+      datasetId: burma-eq-2025
+      layerId: blackmarble-all-vars-daily
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
@@ -80,22 +81,26 @@ layers:
       unit: Wm-2sr-1cm-1
 
 
-  - id: burma-eq-s2-deformation-ew
-    stacCol: burma-eq-s2-deformation-ew
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
-    name:  S2 East-West Deformation - 2025 Burma Earthquake
+  - id: sentinel-1-all-vars-daily-EW
+    stacCol: sentinel-1-all-vars-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
+    name:  S1 East-West Deformation - 2025 Burma Earthquake
     type: raster
-    description: NASA/JPL/Caltech/ARIA product - modified Copernicus Sentinel-2 Multispectral Imager (MSI) east-west ground displacement from February 28 to April 1, 2025.
+    description: NASA/JPL/Caltech/ARIA product - modified Copernicus Sentinel-1 Multispectral Imager (MSI) east-west ground displacement from February 28 to April 1, 2025.
+    media:
+      src: /images/story/burma-eq-background-thumb.jpg
+      alt: 2025 Burma Earthquake layer
     initialDatetime: newest
     zoomExtent:
       - 0
       - 20
     sourceParams:
+      assets: deformation-EW
       colormap_name: bwr_r
       resampling: bilinear
       rescale: -5,5
-      nodata: -999
+      nodata: -9999
     legend:
       unit:
         label: m
@@ -112,8 +117,8 @@ layers:
         - "#92c5de"
         - "#0571b0"
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-s2-deformation-ns
+      datasetId: burma-eq-2025
+      layerId: sentinel-1-all-vars-daily-NS
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
@@ -126,22 +131,26 @@ layers:
       unit: m
 
 
-  - id: burma-eq-s2-deformation-ns
-    stacCol: burma-eq-s2-deformation-ns
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
+  - id: sentinel-1-all-vars-daily-NS
+    stacCol: sentinel-1-all-vars-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
     name:  S2 North-South Deformation - 2025 Burma Earthquake
     type: raster
     description: NASA/JPL/Caltech/ARIA product - modified Copernicus Sentinel-2 Multispectral Imager (MSI) north-south ground displacement from February 28 to April 1, 2025.
+    media:
+      src: /images/story/burma-eq-background-thumb.jpg
+      alt: 2025 Burma Earthquake layer
     initialDatetime: newest
     zoomExtent:
       - 0
       - 20
     sourceParams:
+      assets: deformation-NS
       colormap_name: bwr_r
       resampling: bilinear
       rescale: -5,5
-      nodata: -999
+      nodata: -9999
     legend:
       unit:
         label: m
@@ -158,8 +167,8 @@ layers:
         - "#92c5de"
         - "#0571b0"
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-s2-deformation-ew
+      datasetId: burma-eq-2025
+      layerId: sentinel-1-all-vars-daily-EW
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
@@ -172,13 +181,16 @@ layers:
       unit: m
 
 
-  - id: burma-eq-planet-pre
-    stacCol: burma-eq-planet-pre
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
-    name:  PlanetScope Satellite Imagery (2025 Burma Earthquake - Pre)
+  - id: planet-all-vars-tiles-daily
+    stacCol: planet-all-vars-tiles-daily
+    stacApiEndpoint: https://dev.openveda.cloud/api/stac
+    tileApiEndpoint:  https://dev.openveda.cloud/api/raster
+    name:  PlanetScope Satellite Imagery (2025 Burma Earthquake)
     type: raster
-    description: TrueColor RGB commercial satellite imagery from Planet Labs of the Mandalay, Burma area from before the 2025 earthquake. This data was made available through the NASA Commercial Satellite Data Acquisition (CSDA) Program.
+    description: TrueColor RGB commercial satellite imagery from Planet Labs of the Mandalay, Burma area from the 2025 earthquake. This data was made available through the NASA Commercial Satellite Data Acquisition (CSDA) Program.
+    media:
+      src: /images/story/burma-eq-background-thumb.jpg
+      alt: 2025 Burma Earthquake layer
     initialDatetime: newest
     zoomExtent:
       - 0
@@ -188,46 +200,16 @@ layers:
         - 0
         - 255
       resampling: bilinear
-      asset_bidx: cog_default|1,2,3
+      assets: trueColor
+      bidx: 
+        - 1
+        - 2
+        - 3
     legend:
       type: text
     compare:
-      datasetId: burma-eq
-      layerId: burma-eq-planet-post
-      mapLabel: |
-        ::js ({ dateFns, datetime, compareDatetime }) => {
-          return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
-        }
-
-    info:
-        source: Planet
-        spatialExtent: Local
-        temporalResolution: N/A
-        unit: Radiance
-
-
-  - id: burma-eq-planet-post
-    stacCol: burma-eq-planet-post
-    stacApiEndpoint: https://staging.openveda.cloud/api/stac
-    tileApiEndpoint:  https://staging.openveda.cloud/api/raster
-    name:  PlanetScope Satellite Imagery (2025 Burma Earthquake - Post)
-    type: raster
-    description: TrueColor RGB commercial satellite imagery from Planet Labs of the Mandalay, Burma area from after the 2025 earthquake. This data was made available through the NASA Commercial Satellite Data Acquisition (CSDA) Program.
-    initialDatetime: newest
-    zoomExtent:
-      - 0
-      - 20
-    sourceParams:
-      rescale:
-        - 0
-        - 255
-      resampling: bilinear
-      asset_bidx: cog_default|1,2,3
-    legend:
-      type: text
-    compare:
-      datasetId: burma-eq
-      layerId: burma-eq-planet-pre
+      datasetId: burma-eq-2025
+      layerId: planet-all-vars-tiles-daily
       mapLabel: |
         ::js ({ dateFns, datetime, compareDatetime }) => {
           return `${dateFns.format(datetime, 'dd LLL yyyy')} VS ${dateFns.format(compareDatetime, 'dd LLL yyyy')}`;
@@ -248,9 +230,9 @@ layers:
         <img src="/images/event/data-catalog.png" alt="Dataset" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
         <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Event Summary</div>
       </a>
-      <a href="/exploration?datasets=%5B%7B%22id%22%3A%22burma-eq-planet-post%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22burma-eq-planet-pre%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%7D%7D%2C%7B%22id%22%3A%22burma-eq-s2-deformation-ns%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%2C%22colorMap%22%3A%22bwr_r%22%2C%22scale%22%3A%7B%22min%22%3A-5%2C%22max%22%3A5%7D%7D%7D%2C%7B%22id%22%3A%22burma-eq-s2-deformation-ew%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%2C%22colorMap%22%3A%22bwr_r%22%2C%22scale%22%3A%7B%22min%22%3A-5%2C%22max%22%3A5%7D%7D%7D%2C%7B%22id%22%3A%22burma-eq-night-lights%22%2C%22settings%22%3A%7B%22isVisible%22%3Atrue%2C%22opacity%22%3A100%2C%22analysisMetrics%22%3A%5B%7B%22id%22%3A%22mean%22%2C%22label%22%3A%22Average%22%2C%22chartLabel%22%3A%22Average%22%2C%22themeColor%22%3A%22infographicB%22%7D%2C%7B%22id%22%3A%22std%22%2C%22label%22%3A%22St+Deviation%22%2C%22chartLabel%22%3A%22St+Deviation%22%2C%22themeColor%22%3A%22infographicD%22%7D%5D%2C%22colorMap%22%3A%22greys_r%22%2C%22scale%22%3A%7B%22min%22%3A0%2C%22max%22%3A255%7D%7D%7D%5D&taxonomy=%7B%7D&search=&date=2025-03-29T05%3A00%3A00.000Z" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
+      <a href="/individual-datasets/burma-eq-2025" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
         <img src="/images/event/data-view.png" alt="View Data" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-        <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Visualize</div>
+        <div style={{ padding: '1rem', textAlign: 'center', fontSize: '1.25rem', fontWeight: '600', color: '#2c3d4f' }}>Dataset Gallery</div>
       </a>
       <a href="https://gis.earthdata.nasa.gov/gis05/rest/services" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textDecoration: 'none' }}>
         <img src="/images/event/download-data.png" alt="Download Data" style={{ width: '100%', height: '200px', objectFit: 'cover' }} />

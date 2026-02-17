@@ -1,8 +1,8 @@
 ---
 id: lis-alaska-nrt
-name: Land Information System - Alaska
-description: State of Alaska vegetation and hydrological information produced by NASA’s Short-term Prediction and Transition Center – Land Information System (SPoRT-LIS).
-
+name: LIS Alaska NRT
+description: State of Alaska vegetation and hydrological information produced by NASA's Short-term Prediction.
+isHidden: true
 media:
   src: /images/dataset/lis-alaska-nrt-cover.jpg
   alt: Medenhall Glacier Outlook, Juneau, Alaska
@@ -34,6 +34,9 @@ layers:
     name: Relative Soil Moisture (0-10cm), Updated Daily
     type: wms
     description: Relative soil moisture (RSM) is a ratio of the volumetric soil moisture between the wilting and saturation points for a given soil type.
+    media:
+      src: /images/dataset/lis-alaska-nrt-cover-thumb.jpg
+      alt: lis-alaska-nrt layer
     initialDatetime: newest
     projection:
       id: 'equirectangular'
@@ -78,9 +81,6 @@ layers:
       spatialExtent: Alaska
       temporalResolution: Daily
       unit: Percentage %
-    media:
-      src: /images/dataset/alaska_soil_moisture.thumbnail.png
-      alt: Relative soil moisture percentiles for the state of Alaska
 
   - id: alaska_relative_soil_moisture_40cm
     stacCol: nrt_lis_ak_rsm_40cm
@@ -88,6 +88,9 @@ layers:
     name: Relative Soil Moisture (0-40cm), Updated Daily
     type: wms
     description: Relative soil moisture (RSM) is a ratio of the volumetric soil moisture between the wilting and saturation points for a given soil type.
+    media:
+      src: /images/dataset/lis-alaska-nrt-cover-thumb.jpg
+      alt: lis-alaska-nrt layer
     initialDatetime: newest
     projection:
       id: 'equirectangular'
@@ -133,9 +136,6 @@ layers:
       spatialExtent: Alaska
       temporalResolution: Daily
       unit: Percentage %
-    media:
-      src: /images/dataset/alaska_soil_moisture.thumbnail.png
-      alt: Relative soil moisture percentiles for the state of Alaska
 
   - id: alaska_gvf
     stacCol: nrt_lis_ak_green_veg_fraction
@@ -143,6 +143,9 @@ layers:
     name: Green Vegetation Fraction, Updated Daily
     type: wms
     description: Green Vegetation Fraction (GVF) from VIIRS on Suomi NPP.
+    media:
+      src: /images/dataset/lis-alaska-nrt-cover-thumb.jpg
+      alt: lis-alaska-nrt layer
     initialDatetime: newest
     projection:
       id: 'equirectangular'
@@ -177,9 +180,6 @@ layers:
       spatialExtent: Alaska
       temporalResolution: Daily
       unit: Percentage %
-    media:
-      src: /images/dataset/alaska_green_vegetative_fraction.thumbnail.png
-      alt: Green vegetation fraction for the state of Alaska
 
   - id: alaska_snow_depth
     stacCol: nrt_lis_ak_snow_depth
@@ -187,6 +187,9 @@ layers:
     name: Snow Depth, Updated Daily
     type: wms
     description: Snow depth for the state of Alaska.
+    media:
+      src: /images/dataset/lis-alaska-nrt-cover-thumb.jpg
+      alt: lis-alaska-nrt layer
     initialDatetime: newest
     projection:
       id: 'equirectangular'
@@ -227,9 +230,6 @@ layers:
       spatialExtent: Alaska
       temporalResolution: Daily
       unit: Inches
-    media:
-      src: /images/dataset/alaska_snow_depth.thumbnail.png
-      alt: Snow depth for the state of Alaska
 
 ---
 

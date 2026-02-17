@@ -1,0 +1,353 @@
+name: Add labeled issue to Project Boards
+
+on:
+  issues:
+    types: [labeled, unlabeled]
+
+jobs:
+  add-to-dse-project:
+    if: github.event.label.name == 'dse' && github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to DSE GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/145
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  add-to-odd-project:
+    if: github.event.label.name == 'odd' && github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to ODD GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/136
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  add-to-dashboard-project:
+    if: github.event.label.name == 'dashboard' && github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to Dashboard GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/17
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  add-to-data-services-project:
+    if: github.event.label.name == 'dataServices' && github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to Data Services GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/51
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  remove-from-dse-project:
+    if: github.event.label.name == 'dse' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from DSE GitHub Project
+        env:
+          GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          echo "Issue ID: $ISSUE_ID"
+          echo "Issue Number: $ISSUE_NUMBER"
+          echo "Searching for issue in project 145..."
+
+          # First get the project ID
+          PROJECT_DATA=$(gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                }
+              }
+            }' -f org='NASA-IMPACT' -F number=145)
+
+          PROJECT_ID=$(echo "$PROJECT_DATA" | jq -r '.data.organization.projectV2.id')
+          echo "Project ID: $PROJECT_ID"
+
+          # Fetch all items with pagination
+          CURSOR=""
+          ITEM_ID=""
+          PAGE=1
+
+          while [ -z "$ITEM_ID" ]; do
+            echo "Fetching page $PAGE..."
+
+            if [ -z "$CURSOR" ]; then
+              QUERY_RESULT=$(gh api graphql -f query='
+                query($org: String!, $number: Int!) {
+                  organization(login: $org) {
+                    projectV2(number: $number) {
+                      items(first: 100) {
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                        nodes {
+                          id
+                          content {
+                            ... on Issue {
+                              id
+                              number
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }' -f org='NASA-IMPACT' -F number=145)
+            else
+              QUERY_RESULT=$(gh api graphql -f query='
+                query($org: String!, $number: Int!, $cursor: String!) {
+                  organization(login: $org) {
+                    projectV2(number: $number) {
+                      items(first: 100, after: $cursor) {
+                        pageInfo {
+                          hasNextPage
+                          endCursor
+                        }
+                        nodes {
+                          id
+                          content {
+                            ... on Issue {
+                              id
+                              number
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }' -f org='NASA-IMPACT' -F number=145 -f cursor="$CURSOR")
+            fi
+
+            # Check if issue is in this page
+            ITEM_ID=$(echo "$QUERY_RESULT" | jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id')
+
+            if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+              echo "Found issue in page $PAGE"
+              break
+            fi
+
+            # Check if there are more pages
+            HAS_NEXT_PAGE=$(echo "$QUERY_RESULT" | jq -r '.data.organization.projectV2.items.pageInfo.hasNextPage')
+
+            if [ "$HAS_NEXT_PAGE" = "false" ]; then
+              echo "Issue #$ISSUE_NUMBER not found in project after checking all pages"
+              exit 0
+            fi
+
+            CURSOR=$(echo "$QUERY_RESULT" | jq -r '.data.organization.projectV2.items.pageInfo.endCursor')
+            PAGE=$((PAGE + 1))
+          done
+
+          echo "Item ID: $ITEM_ID"
+
+          if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+            echo "Deleting item $ITEM_ID from project $PROJECT_ID"
+            DELETE_RESULT=$(gh api graphql -f query='
+              mutation($projectId: ID!, $itemId: ID!) {
+                deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
+                  deletedItemId
+                }
+              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID")
+
+            echo "Delete result: $DELETE_RESULT"
+
+            if echo "$DELETE_RESULT" | jq -e '.data.deleteProjectV2Item.deletedItemId' > /dev/null; then
+              echo "✓ Successfully removed issue #$ISSUE_NUMBER from DSE project"
+            else
+              echo "✗ Failed to remove issue #$ISSUE_NUMBER from DSE project"
+              echo "$DELETE_RESULT"
+              exit 1
+            fi
+          fi
+
+  remove-from-odd-project:
+    if: github.event.label.name == 'odd' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from ODD GitHub Project
+        env:
+          GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+          gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org='NASA-IMPACT' -F number=136 > project_data.json
+
+          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+          PROJECT_ID=$(jq -r '.data.organization.projectV2.id' project_data.json)
+
+          if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+            gh api graphql -f query='
+              mutation($projectId: ID!, $itemId: ID!) {
+                deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
+                  deletedItemId
+                }
+              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID"
+            echo "Removed issue from project"
+          else
+            echo "Issue not found in project"
+          fi
+
+  remove-from-dashboard-project:
+    if: github.event.label.name == 'dashboard' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from Dashboard GitHub Project
+        env:
+          GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+          gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org='NASA-IMPACT' -F number=17 > project_data.json
+
+          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+          PROJECT_ID=$(jq -r '.data.organization.projectV2.id' project_data.json)
+
+          if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+            gh api graphql -f query='
+              mutation($projectId: ID!, $itemId: ID!) {
+                deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
+                  deletedItemId
+                }
+              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID"
+            echo "Removed issue from project"
+          else
+            echo "Issue not found in project"
+          fi
+
+  remove-from-data-services-project:
+    if: github.event.label.name == 'dataServices' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from Data Services GitHub Project
+        env:
+          GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+          gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org='NASA-IMPACT' -F number=51 > project_data.json
+
+          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+          PROJECT_ID=$(jq -r '.data.organization.projectV2.id' project_data.json)
+
+          if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+            gh api graphql -f query='
+              mutation($projectId: ID!, $itemId: ID!) {
+                deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
+                  deletedItemId
+                }
+              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID"
+            echo "Removed issue from project"
+          else
+            echo "Issue not found in project"
+          fi
+
+  add-to-science-support-project:
+    if: github.event.label.name == 'scienceSupport' && github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to Science Support GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/NASA-IMPACT/projects/41
+          github-token: ${{ secrets.DSE_GH_TOKEN }}
+
+  remove-from-science-support-project:
+    if: github.event.label.name == 'scienceSupport' && github.event.action == 'unlabeled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove issue from Science Support GitHub Project
+        env:
+          GITHUB_TOKEN: ${{ secrets.DSE_GH_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+          gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org='NASA-IMPACT' -F number=41 > project_data.json
+
+          ITEM_ID=$(jq -r --arg issue_id "$ISSUE_ID" '.data.organization.projectV2.items.nodes[] | select(.content.id == $issue_id) | .id' project_data.json)
+          PROJECT_ID=$(jq -r '.data.organization.projectV2.id' project_data.json)
+
+          if [ -n "$ITEM_ID" ] && [ "$ITEM_ID" != "null" ]; then
+            gh api graphql -f query='
+              mutation($projectId: ID!, $itemId: ID!) {
+                deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
+                  deletedItemId
+                }
+              }' -f projectId="$PROJECT_ID" -f itemId="$ITEM_ID"
+            echo "Removed issue from project"
+          else
+            echo "Issue not found in project"
+          fi

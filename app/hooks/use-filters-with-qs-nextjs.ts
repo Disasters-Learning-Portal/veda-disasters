@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useQsStateCreator from '@teamimpact/veda-ui/node_modules/qs-state-hook/dist/index.js';
+import useQsStateCreator from 'qs-state-hook';
 import { omit, set } from 'lodash';
 
 /**
@@ -73,17 +73,27 @@ export function useFiltersWithQSNextJS(): UseFiltersWithQueryResult {
     commit: ({ search }) => {
       if (typeof window === 'undefined') return;
 
-      const currentUrl = new URL(window.location.href);
+      try {
+        const currentUrl = new URL(window.location.href);
 
-      // Only update URL if search parameters are provided
-      if (search && search !== '?') {
-        const cleanSearch = search.startsWith('?') ? search.slice(1) : search;
-        currentUrl.search = cleanSearch;
+        // Update URL with new search parameters
+        if (search !== undefined && search !== null) {
+          const cleanSearch = search.startsWith('?') ? search.slice(1) : search;
+          currentUrl.search = cleanSearch || '';
+        } else {
+          currentUrl.search = '';
+        }
+
+        const fullPath =
+          currentUrl.pathname + currentUrl.search + currentUrl.hash;
+
+        // Only push if the URL actually changed
+        if (fullPath !== window.location.pathname + window.location.search + window.location.hash) {
+          router.push(fullPath, { scroll: false });
+        }
+      } catch (error) {
+        console.error('Error updating URL:', error);
       }
-
-      const fullPath =
-        currentUrl.pathname + currentUrl.search + currentUrl.hash;
-      router.push(fullPath);
     },
   });
 
@@ -108,28 +118,6 @@ export function useFiltersWithQSNextJS(): UseFiltersWithQueryResult {
   );
 
   /**
-   * Manual hydration fallback to ensure taxonomies are loaded from URL
-   * This handles cases where qs-state-hook doesn't properly hydrate
-   */
-  useEffect(() => {
-    const taxonomyParam = searchParams.get('taxonomy');
-    if (!taxonomyParam) return;
-
-    try {
-      const parsedTaxonomy = JSON.parse(taxonomyParam);
-      const isEmpty = Object.keys(taxonomies || {}).length === 0;
-      const isDifferent =
-        JSON.stringify(taxonomies) !== JSON.stringify(parsedTaxonomy);
-
-      if (isEmpty || isDifferent) {
-        setTaxonomies(parsedTaxonomy);
-      }
-    } catch {
-      // Silently handle JSON parsing errors
-    }
-  }, [searchParams, taxonomies, setTaxonomies]);
-
-  /**
    * Force re-render when URL search parameters change
    */
   useEffect(() => {
@@ -141,29 +129,41 @@ export function useFiltersWithQSNextJS(): UseFiltersWithQueryResult {
    */
   const handleTaxonomyMultiselect = useCallback(
     (key: string, value: string) => {
-      if (!taxonomies || !(key in taxonomies)) {
-        setTaxonomies(set({ ...taxonomies }, key, [value]));
-        return;
-      }
+      console.log('handleTaxonomyMultiselect called:', { key, value });
+      setTaxonomies((currentTaxonomies) => {
+        console.log('Current taxonomies before update:', currentTaxonomies);
 
-      const currentValues = Array.isArray(taxonomies[key])
-        ? (taxonomies[key] as string[])
-        : [taxonomies[key] as string];
-
-      if (currentValues.includes(value)) {
-        // Remove value
-        const updatedValues = currentValues.filter((x) => x !== value);
-        if (updatedValues.length > 0) {
-          setTaxonomies(set({ ...taxonomies }, key, updatedValues));
-        } else {
-          setTaxonomies(omit(taxonomies, key));
+        if (!currentTaxonomies || !(key in currentTaxonomies)) {
+          const result = set({ ...currentTaxonomies }, key, [value]);
+          console.log('Setting new taxonomy:', result);
+          return result;
         }
-      } else {
-        // Add value
-        setTaxonomies(set({ ...taxonomies }, key, [...currentValues, value]));
-      }
+
+        const currentValues = Array.isArray(currentTaxonomies[key])
+          ? (currentTaxonomies[key] as string[])
+          : [currentTaxonomies[key] as string];
+
+        if (currentValues.includes(value)) {
+          // Remove value
+          const updatedValues = currentValues.filter((x) => x !== value);
+          if (updatedValues.length > 0) {
+            const result = set({ ...currentTaxonomies }, key, updatedValues);
+            console.log('Updating taxonomy (partial remove):', result);
+            return result;
+          } else {
+            const result = omit(currentTaxonomies, key);
+            console.log('Removing taxonomy completely:', result);
+            return result;
+          }
+        } else {
+          // Add value
+          const result = set({ ...currentTaxonomies }, key, [...currentValues, value]);
+          console.log('Adding value to taxonomy:', result);
+          return result;
+        }
+      });
     },
-    [taxonomies, setTaxonomies],
+    [setTaxonomies],
   );
 
   /**
@@ -192,9 +192,9 @@ export function useFiltersWithQSNextJS(): UseFiltersWithQueryResult {
         case FilterActions.TAXONOMY: {
           const { key, value: val } = value;
           if (val === OPTION_ALL.id) {
-            setTaxonomies(omit(taxonomies, key));
+            setTaxonomies((current) => omit(current, key));
           } else {
-            setTaxonomies(set({ ...taxonomies }, key, val));
+            setTaxonomies((current) => set({ ...current }, key, val));
           }
           break;
         }
@@ -209,7 +209,7 @@ export function useFiltersWithQSNextJS(): UseFiltersWithQueryResult {
           break;
       }
     },
-    [setSearch, setTaxonomies, taxonomies, handleTaxonomyMultiselect],
+    [setSearch, setTaxonomies, handleTaxonomyMultiselect],
   );
 
   return {

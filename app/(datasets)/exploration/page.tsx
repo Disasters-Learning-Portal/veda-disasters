@@ -5,7 +5,7 @@ import { PageHero } from 'app/lib';
 
 const ExplorationAnalysis = dynamic(
   () => import('./exploration'),
-  { 
+  {
     ssr: false,
     loading: () => <p>Loading...</p>
   },

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 
 interface LayerCardsGridProps {
   layers: any[];
@@ -15,6 +16,9 @@ export default function LayerCardsGrid({ layers, parentMedia }: LayerCardsGridPr
           alt: layer.name || 'Dataset layer'
         };
 
+        // Link to exploration page (users will select the dataset manually)
+        const explorationUrl = `/exploration`;
+
         return (
           <div key={layer.id || index} className="layer-card">
             <div className="layer-card-image">
@@ -25,7 +29,13 @@ export default function LayerCardsGrid({ layers, parentMedia }: LayerCardsGridPr
               <p className="layer-card-description">{layer.description}</p>
               <div className="layer-card-actions">
                 <div className="layer-card-action-button">Access data in GIS</div>
-                <div className="layer-card-action-button">Access data in VEDA</div>
+                <Link
+                  href={explorationUrl}
+                  className="layer-card-action-button"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  Access data in VEDA
+                </Link>
               </div>
             </div>
           </div>

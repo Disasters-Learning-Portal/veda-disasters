@@ -36,7 +36,7 @@ export default function HomePage() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(90deg, rgba(30,58,138,1) 0%, rgba(30,58,138,1) 30%, rgba(30,58,138,0) 100%)',
+            background: 'linear-gradient(90deg, rgba(12,49,61,1) 0%, rgba(12,49,61,1) 30%, rgba(12,49,61,0) 100%)',
             zIndex: 1,
           }}
         />
@@ -56,13 +56,31 @@ export default function HomePage() {
           >
             A community-driven hub translating NASA Earth science into actionable insights for disaster decision-making
           </p>
+          <a
+            href="/about"
+            className="hero-learn-more-button"
+            style={{
+              display: 'inline-block',
+              marginTop: '2rem',
+              padding: '1rem 2rem',
+              backgroundColor: '#0D7482',
+              color: 'white',
+              fontSize: '1.25rem',
+              fontWeight: 600,
+              textDecoration: 'none',
+              borderRadius: '0.5rem',
+              transition: 'background-color 0.2s',
+            }}
+          >
+            Learn about us
+          </a>
         </div>
 
         {/* Action Cards - full width across hero, outside grid-container */}
         <div className="position-relative" style={{ zIndex: 2, marginTop: '9rem', paddingLeft: '3rem', paddingRight: '3rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', width: '100%' }}>
-            <a href="/themes/prepare" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Prepare" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+            <a href="/themes/prepare" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
+              <img src="/images/event/blue-card.png" alt="Prepare" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>PREPARE</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -71,8 +89,8 @@ export default function HomePage() {
                 <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
               </div>
             </a>
-            <a href="/themes/respond" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Respond" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+            <a href="/themes/respond" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
+              <img src="/images/event/blue-card.png" alt="Respond" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RESPOND</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -81,8 +99,8 @@ export default function HomePage() {
                 <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
               </div>
             </a>
-            <a href="/themes/recover" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Recover" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+            <a href="/themes/recover" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
+              <img src="/images/event/blue-card.png" alt="Recover" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RECOVER</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -91,8 +109,8 @@ export default function HomePage() {
                 <span style={{ color: 'white', fontSize: '1.5rem', fontWeight: 'bold', transform: 'rotate(-45deg)', display: 'inline-block' }}>→</span>
               </div>
             </a>
-            <a href="/themes/resilience" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: 'rgba(255, 255, 255, 0.1)', position: 'relative' }}>
-              <img src="/images/event/blue-card.png" alt="Resilience" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.6 }} />
+            <a href="/themes/resilience" style={{ display: 'block', borderRadius: '1rem', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.3)', textDecoration: 'none', transition: 'transform 0.2s', backgroundColor: '#003736', position: 'relative' }}>
+              <img src="/images/event/blue-card.png" alt="Resilience" style={{ width: '100%', height: '160px', objectFit: 'cover', opacity: 0.3 }} />
               <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', padding: '1.5rem', textAlign: 'left' }}>
                 <h3 style={{ color: 'white', fontSize: '2rem', fontWeight: '700', margin: 0, marginBottom: '0.5rem' }}>RESILIENCE</h3>
                 <p style={{ color: 'white', fontSize: '1.2rem', margin: 0, lineHeight: 2.4 }}>Advancing science for disaster resilience</p>
@@ -107,19 +125,30 @@ export default function HomePage() {
 
 
       {/* Full-width Data Portal Visualization */}
-      <div style={{ width: '60%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '80%', margin: '0 auto', marginTop: '11rem' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Data Portal Visualization
         </h2>
-        <img
-          src="/images/homepage/tropical-cyclone-dashboard.png"
-          alt="Tropical Cyclone Interactive Dashboard showing current activations"
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+        <iframe
+          id="data-portal-visualization"
+          style={{ height: '700px', width: '100%', display: 'block', border: 'none', overflow: 'hidden' }}
+          src="https://nasa.maps.arcgis.com/apps/webappviewer/index.html?id=7f9055f1e97f45f696e7a34bc4bd0002"
+          title="Tropical Cyclone Interactive Dashboard showing current activations"
         />
+        <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left', marginTop: '10rem' }}>
+          Recent DRCS Activations
+        </h2>
+        <a href="/data-catalog/hurricane-helene-2024" style={{ display: 'block' }}>
+          <img
+            src="/images/homepage/tropical-cyclone-small.png"
+            alt="Tropical cyclone visualization"
+            style={{ width: '100%', height: 'auto', display: 'block', marginTop: '2rem' }}
+          />
+        </a>
       </div>
 
       {/* Full-width Resources & Learnings */}
-      <div style={{ width: '60%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '80%', margin: '0 auto', marginTop: '9rem' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 700, marginBottom: '1rem', textAlign: 'left' }}>
           Resources & Learnings
         </h2>
@@ -131,7 +160,7 @@ export default function HomePage() {
       </div>
 
       {/* Homepage Connect */}
-      <div style={{ width: '90%', margin: '0 auto', marginTop: '9rem' }}>
+      <div style={{ width: '90%', margin: '0 auto', marginTop: '14rem' }}>
         <img
           src="/images/homepage/homepage-connect.png"
           alt="Connect with the Disasters community"

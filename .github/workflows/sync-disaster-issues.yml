@@ -1,0 +1,275 @@
+name: Sync Disasters Issues
+
+on:
+  workflow_dispatch: # Manual trigger for testing
+  schedule:
+    - cron: '*/10 * * * *' # Every 10 minutes
+
+jobs:
+  sync-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync Disaster Issues
+        env:
+          GH_TOKEN: ${{ secrets.DISASTER_SYNC_TOKEN }}
+        run: |
+          set -e
+
+          # Source project details
+          SOURCE_ORG="NASA-IMPACT"
+          SOURCE_PROJECT_NUMBER="39"
+
+          # Destination project details
+          DEST_ORG="Disasters-Learning-Portal"
+          DEST_PROJECT_NUMBER="5"
+
+          echo "========================================="
+          echo "Starting Disasters Issues Sync"
+          echo "========================================="
+          echo ""
+
+          # Step 1: Get destination project ID and fields
+          echo "Fetching destination project structure..."
+          DEST_PROJECT_DATA=$(gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  title
+                  fields(first: 50) {
+                    nodes {
+                      ... on ProjectV2Field {
+                        id
+                        name
+                      }
+                      ... on ProjectV2SingleSelectField {
+                        id
+                        name
+                        options {
+                          id
+                          name
+                        }
+                      }
+                      ... on ProjectV2IterationField {
+                        id
+                        name
+                        configuration {
+                          iterations {
+                            id
+                            title
+                          }
+                        }
+                      }
+                    }
+                  }
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                          number
+                          repository {
+                            nameWithOwner
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org="$DEST_ORG" -F number=$DEST_PROJECT_NUMBER)
+
+          DEST_PROJECT_ID=$(echo "$DEST_PROJECT_DATA" | jq -r '.data.organization.projectV2.id')
+          echo "Destination Project ID: $DEST_PROJECT_ID"
+          echo ""
+
+          # Step 2: Fetch source project items with initiative:Disasters label
+          echo "Fetching issues from NASA-IMPACT project board..."
+          SOURCE_DATA=$(gh api graphql -f query='
+            query($org: String!, $number: Int!) {
+              organization(login: $org) {
+                projectV2(number: $number) {
+                  id
+                  title
+                  items(first: 100) {
+                    nodes {
+                      id
+                      fieldValues(first: 50) {
+                        nodes {
+                          ... on ProjectV2ItemFieldTextValue {
+                            text
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                name
+                              }
+                            }
+                          }
+                          ... on ProjectV2ItemFieldDateValue {
+                            date
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                name
+                              }
+                            }
+                          }
+                          ... on ProjectV2ItemFieldSingleSelectValue {
+                            name
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                name
+                              }
+                            }
+                          }
+                          ... on ProjectV2ItemFieldNumberValue {
+                            number
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                name
+                              }
+                            }
+                          }
+                          ... on ProjectV2ItemFieldIterationValue {
+                            title
+                            field {
+                              ... on ProjectV2FieldCommon {
+                                name
+                              }
+                            }
+                          }
+                        }
+                      }
+                      content {
+                        ... on Issue {
+                          id
+                          number
+                          title
+                          url
+                          state
+                          repository {
+                            nameWithOwner
+                          }
+                          labels(first: 20) {
+                            nodes {
+                              name
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' -f org="$SOURCE_ORG" -F number=$SOURCE_PROJECT_NUMBER)
+
+          # Filter for items with initiative:Disasters label and extract relevant data
+          echo "Filtering for initiative:Disasters issues..."
+          DISASTER_ISSUES=$(echo "$SOURCE_DATA" | jq -c '
+            .data.organization.projectV2.items.nodes[] |
+            select(.content.labels.nodes[]? | .name == "initiative: Disasters") |
+            {
+              issueId: .content.id,
+              issueNumber: .content.number,
+              issueTitle: .content.title,
+              issueUrl: .content.url,
+              repo: .content.repository.nameWithOwner,
+              fieldValues: [
+                .fieldValues.nodes[] |
+                {
+                  fieldName: .field.name,
+                  value: (.text // .name // .date // .number // .title // "")
+                }
+              ]
+            }
+          ')
+
+          ISSUE_COUNT=$(echo "$DISASTER_ISSUES" | wc -l | tr -d ' ')
+          echo "Found $ISSUE_COUNT issues with initiative:Disasters label"
+          echo ""
+
+          # Step 3: Get existing items in destination project to avoid duplicates
+          echo "Checking existing items in destination project..."
+          EXISTING_ITEMS=$(echo "$DEST_PROJECT_DATA" | jq -c '
+            .data.organization.projectV2.items.nodes[] |
+            select(.content != null) |
+            {
+              projectItemId: .id,
+              issueId: .content.id,
+              repo: .content.repository.nameWithOwner,
+              number: .content.number
+            }
+          ')
+
+          # Step 4: Process each disaster issue
+          echo "Processing issues..."
+          echo ""
+
+          ADDED_COUNT=0
+          SKIPPED_COUNT=0
+
+          while IFS= read -r issue; do
+            ISSUE_ID=$(echo "$issue" | jq -r '.issueId')
+            ISSUE_NUMBER=$(echo "$issue" | jq -r '.issueNumber')
+            ISSUE_TITLE=$(echo "$issue" | jq -r '.issueTitle')
+            ISSUE_URL=$(echo "$issue" | jq -r '.issueUrl')
+            REPO=$(echo "$issue" | jq -r '.repo')
+
+            # Check if issue already exists in destination project
+            EXISTING=$(echo "$EXISTING_ITEMS" | jq -r --arg issueId "$ISSUE_ID" 'select(.issueId == $issueId) | .projectItemId')
+
+            if [ -n "$EXISTING" ]; then
+              echo "⏭️  Skipping $REPO#$ISSUE_NUMBER - already in destination project"
+              SKIPPED_COUNT=$((SKIPPED_COUNT + 1))
+              continue
+            fi
+
+            echo "➕ Adding $REPO#$ISSUE_NUMBER: $ISSUE_TITLE"
+
+            # Add issue to destination project
+            ADD_RESULT=$(gh api graphql -f query='
+              mutation($projectId: ID!, $contentId: ID!) {
+                addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
+                  item {
+                    id
+                  }
+                }
+              }' -f projectId="$DEST_PROJECT_ID" -f contentId="$ISSUE_ID")
+
+            PROJECT_ITEM_ID=$(echo "$ADD_RESULT" | jq -r '.data.addProjectV2ItemById.item.id')
+
+            if [ -n "$PROJECT_ITEM_ID" ] && [ "$PROJECT_ITEM_ID" != "null" ]; then
+              echo "   ✅ Added to project (Item ID: $PROJECT_ITEM_ID)"
+              ADDED_COUNT=$((ADDED_COUNT + 1))
+
+              # TODO: Copy field values from source to destination
+              # This requires mapping field IDs between projects
+              # For now, fields will need to be set manually or in a follow-up enhancement
+
+            else
+              echo "   ❌ Failed to add to project"
+            fi
+
+            echo ""
+
+          done <<< "$DISASTER_ISSUES"
+
+          echo ""
+          echo "========================================="
+          echo "Sync Complete!"
+          echo "========================================="
+          echo "Added: $ADDED_COUNT issues"
+          echo "Skipped: $SKIPPED_COUNT issues (already in project)"
+          echo "Total processed: $ISSUE_COUNT issues"
+          echo ""

@@ -98,6 +98,7 @@ jobs:
 
           # Step 2: Fetch source project items with initiative:Disasters label
           echo "Fetching issues from NASA-IMPACT project board..."
+
           SOURCE_DATA=$(gh api graphql -f query='
             query($org: String!, $number: Int!) {
               organization(login: $org) {
@@ -174,10 +175,17 @@ jobs:
               }
             }' -f org="$SOURCE_ORG" -F number=$SOURCE_PROJECT_NUMBER)
 
+          # Debug: Show all unique labels found
+          echo "Debug: All labels found in source project:"
+          echo "$SOURCE_DATA" | jq -r '.data.organization.projectV2.items.nodes[].content.labels.nodes[]?.name' | sort -u
+          echo ""
+
           # Filter for items with initiative:Disasters label and extract relevant data
           echo "Filtering for initiative:Disasters issues..."
           DISASTER_ISSUES=$(echo "$SOURCE_DATA" | jq -c '
             .data.organization.projectV2.items.nodes[] |
+            select(.content != null) |
+            select(.content.labels != null) |
             select(.content.labels.nodes[]? | .name == "initiative: Disasters") |
             {
               issueId: .content.id,
@@ -195,8 +203,15 @@ jobs:
             }
           ')
 
-          ISSUE_COUNT=$(echo "$DISASTER_ISSUES" | wc -l | tr -d ' ')
+          # Count non-empty lines
+          ISSUE_COUNT=$(echo "$DISASTER_ISSUES" | grep -v '^$' | wc -l | tr -d ' ')
           echo "Found $ISSUE_COUNT issues with initiative:Disasters label"
+
+          # Debug: show first issue if available
+          if [ "$ISSUE_COUNT" -gt 0 ]; then
+            echo "Sample issue data:"
+            echo "$DISASTER_ISSUES" | head -1 | jq '.'
+          fi
           echo ""
 
           # Step 3: Get existing items in destination project to avoid duplicates
@@ -220,11 +235,20 @@ jobs:
           SKIPPED_COUNT=0
 
           while IFS= read -r issue; do
-            ISSUE_ID=$(echo "$issue" | jq -r '.issueId')
-            ISSUE_NUMBER=$(echo "$issue" | jq -r '.issueNumber')
-            ISSUE_TITLE=$(echo "$issue" | jq -r '.issueTitle')
-            ISSUE_URL=$(echo "$issue" | jq -r '.issueUrl')
-            REPO=$(echo "$issue" | jq -r '.repo')
+            # Skip empty lines
+            [ -z "$issue" ] && continue
+
+            ISSUE_ID=$(echo "$issue" | jq -r '.issueId // ""')
+            ISSUE_NUMBER=$(echo "$issue" | jq -r '.issueNumber // ""')
+            ISSUE_TITLE=$(echo "$issue" | jq -r '.issueTitle // ""')
+            ISSUE_URL=$(echo "$issue" | jq -r '.issueUrl // ""')
+            REPO=$(echo "$issue" | jq -r '.repo // ""')
+
+            # Skip if essential data is missing
+            if [ -z "$ISSUE_ID" ] || [ "$ISSUE_ID" == "null" ]; then
+              echo "⚠️  Skipping issue with missing ID data"
+              continue
+            fi
 
             # Check if issue already exists in destination project
             EXISTING=$(echo "$EXISTING_ITEMS" | jq -r --arg issueId "$ISSUE_ID" 'select(.issueId == $issueId) | .projectItemId')
